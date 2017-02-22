@@ -14,7 +14,6 @@ import android.view.View;
 import com.google.mgmg22demo.R;
 import com.google.mgmg22demo.adapter.RecyclerViewAdapter;
 import com.google.mgmg22demo.bean.TestBean;
-import com.google.mgmg22demo.util.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,25 +114,13 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 }
             }
         });
-
-        //添加点击事件
-        adapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Utility.showToast(RecyclerViewActivity.this, "第" + position + "行被点击");
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-            }
-        });
         //getData();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 getData();
             }
-        }, 1500);
+        }, 1000);
     }
 
     /**
@@ -199,7 +186,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false);
                 adapter.notifyItemRemoved(adapter.getItemCount());
             }
-        }, 1500);
+        }, 1000);
     }
 
 }
