@@ -6,11 +6,11 @@ import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.mgmg22demo.R;
 import com.google.mgmg22demo.bean.TestBean;
+import com.google.mgmg22demo.util.Utility;
 import com.google.mgmg22demo.widget.CornerLabelView;
 
 import java.util.List;
@@ -38,13 +38,8 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
+
         void onItemLongClick(View view, int position);
-    }
-
-    private OnItemClickListener onItemClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -65,7 +60,17 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM) {
             View view = LayoutInflater.from(context).inflate(R.layout.card_base, parent, false);
-            return new ItemViewHolder(view);
+            return new ItemViewHolder(view, new OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Utility.showToast(context, "第" + position + "行被点击");
+                }
+
+                @Override
+                public void onItemLongClick(View view, int position) {
+                    Utility.showToast(context, "第" + position + "行LongClick");
+                }
+            });
         } else if (viewType == TYPE_FOOTER) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_foot, parent, false);
             return new FootViewHolder(view);
@@ -92,29 +97,12 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
             mClv.setPaddingTop(mText1Height);
             mClv.setPaddingCenter(mText1Height / 3);
             mClv.setPaddingBottom(mText1Height / 3);
-            if (onItemClickListener != null) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = holder.getLayoutPosition();
-                        onItemClickListener.onItemClick(holder.itemView, position);
-                    }
-                });
-
-                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        int position = holder.getLayoutPosition();
-                        onItemClickListener.onItemLongClick(holder.itemView, position);
-                        return false;
-                    }
-                });
-            }
-        } else if (holder instanceof FootViewHolder) {
-            if (FOOT_FLAG == 1) {
-                ((FootViewHolder) holder).item_foot.setVisibility(View.GONE);
-            } else {
-                ((FootViewHolder) holder).item_foot.setVisibility(View.VISIBLE);
+            if (holder instanceof FootViewHolder) {
+                if (FOOT_FLAG == 1) {
+                    ((FootViewHolder) holder).itemView.setVisibility(View.GONE);
+                } else {
+                    ((FootViewHolder) holder).itemView.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
@@ -127,25 +115,36 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
         FOOT_FLAG = 0;
     }
 
-    static class ItemViewHolder extends ViewHolder {
+    static class ItemViewHolder extends ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        OnItemClickListener mListener;
         @BindView(R.id.tv_ghid)
         TextView tv_ghid;
         @BindView(R.id.label)
         CornerLabelView label;
 
-        public ItemViewHolder(View view) {
+        public ItemViewHolder(View view, OnItemClickListener ItemClickListener) {
             super(view);
             ButterKnife.bind(this, view);
+            mListener = ItemClickListener;
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mListener.onItemClick(v, getLayoutPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            mListener.onItemLongClick(v, getLayoutPosition());
+            return true;
         }
     }
 
     static class FootViewHolder extends ViewHolder {
-        @BindView(R.id.item_foot)
-        LinearLayout item_foot;
-
         public FootViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
         }
     }
 }
