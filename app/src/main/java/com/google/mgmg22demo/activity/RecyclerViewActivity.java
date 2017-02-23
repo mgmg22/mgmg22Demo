@@ -14,6 +14,7 @@ import android.view.View;
 import com.google.mgmg22demo.R;
 import com.google.mgmg22demo.adapter.RecyclerViewAdapter;
 import com.google.mgmg22demo.bean.TestBean;
+import com.google.mgmg22demo.util.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,6 +162,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
             @Override
             public void onMyError(VolleyError error) {
+                swipeRefreshLayout.setRefreshing(false);
                 Log.e(getClass().getSimpleName(), "getData()请求失败：" + error.toString());
                 Utility.noNetworkDataAlert(getApplicationContext());
             }
@@ -179,6 +181,10 @@ public class RecyclerViewActivity extends AppCompatActivity {
         data.add(new TestBean("标题4", "角标4"));
         data.add(new TestBean("标题5", "角标5"));
         data.add(new TestBean("标题6", "角标6"));
+        if (data.size() == 0) {
+            adapter.hideFoot();
+            Utility.showToast(getApplicationContext(), "没有更多数据");
+        }
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
