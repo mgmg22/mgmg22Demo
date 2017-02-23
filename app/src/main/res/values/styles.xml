@@ -4,9 +4,10 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- toolbar（actionbar）颜色 -->
         <item name="colorPrimary">@color/blueStatus</item>
-        <!-- 状态栏颜色 -->
+        <!-- 状态栏颜色，仅对4.4以上系统生效 -->
         <item name="colorPrimaryDark">@color/blueStatus</item>
-        <item name="colorAccent">@color/blueStatus</item>
+        <!-- 光标颜色 -->
+        <item name="colorAccent">@color/colorAccent</item>
         <!--去掉系统默认的标题栏-->
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
