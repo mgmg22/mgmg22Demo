@@ -81,7 +81,8 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
-            ((ItemViewHolder) holder).tv_ghid.setText(((TestBean) data.get(position)).getGH_ID());
+            ((ItemViewHolder) holder).tv_first.setText(((TestBean) data.get(position)).getGH_ID());
+            ((ItemViewHolder) holder).tv_second.setText("测试 test 123456");
             //设置角标
             mClv = ((ItemViewHolder) holder).label;
             String node_name = ((TestBean) data.get(position)).getNODE_NAME();
@@ -117,8 +118,10 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
 
     static class ItemViewHolder extends ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         OnItemClickListener mListener;
-        @BindView(R.id.tv_ghid)
-        TextView tv_ghid;
+        @BindView(R.id.tv_first)
+        TextView tv_first;
+        @BindView(R.id.tv_second)
+        TextView tv_second;
         @BindView(R.id.label)
         CornerLabelView label;
 
