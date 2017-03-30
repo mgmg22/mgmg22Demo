@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -84,27 +83,6 @@ public class Utility {
             return true;
         }
         return false;
-    }
-
-    /**
-     * 打印完整的log信息，注意会分段显示
-     *
-     * @param tag
-     * @param content
-     */
-    public static void logE(String tag, String content) {
-        int p = 2048;
-        long length = content.length();
-        if (length < p || length == p)
-            Log.e(tag, content);
-        else {
-            while (content.length() > p) {
-                String logContent = content.substring(0, p);
-                content = content.replace(logContent, "");
-                Log.e(tag, logContent);
-            }
-            Log.e(tag, content);
-        }
     }
 
     /**

@@ -22,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(start_intent);
     }
 
+    @OnClick(R.id.btn_02)
+    void start2() {
+        start_intent = new Intent(getApplicationContext(), TestTvActivity.class);
+        startActivity(start_intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

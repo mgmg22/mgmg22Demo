@@ -8,13 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.google.mgmg22demo.R;
 import com.google.mgmg22demo.adapter.RecyclerViewAdapter;
 import com.google.mgmg22demo.bean.TestBean;
+import com.google.mgmg22demo.util.LogUtils;
 import com.google.mgmg22demo.util.Utility;
+import com.google.mgmg22demo.widget.MyItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +77,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new MyItemDecoration());
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -92,7 +94,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 //表示当前底部
 //                Log.d("test", "lastVisibleItemPosition:" + lastVisibleItemPosition);
                 if (lastVisibleItemPosition + 1 == adapter.getItemCount()) {
-                    Log.d("test", "loading executed");
+                    LogUtils.d("loading executed");
                     boolean isRefreshing = swipeRefreshLayout.isRefreshing();
                     if (isRefreshing) {
                         adapter.notifyItemRemoved(adapter.getItemCount());
@@ -109,7 +111,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
 //                            }
 //                        }, 2500);
                         getData();
-                        Log.d("test", "load more completed");
+                        LogUtils.d("load more completed");
                         isLoading = false;
                     }
                 }
