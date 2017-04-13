@@ -15,7 +15,6 @@ import com.google.mgmg22demo.adapter.RecyclerViewAdapter;
 import com.google.mgmg22demo.bean.TestBean;
 import com.google.mgmg22demo.util.LogUtils;
 import com.google.mgmg22demo.util.Utility;
-import com.google.mgmg22demo.widget.MyItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +76,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new MyItemDecoration());
+//        recyclerView.addItemDecoration(new MyItemDecoration());
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
