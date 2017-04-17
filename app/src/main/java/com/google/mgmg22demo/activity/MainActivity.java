@@ -1,31 +1,37 @@
 package com.google.mgmg22demo.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
+import android.os.Handler;
 
 import com.google.mgmg22demo.R;
+import com.google.mgmg22demo.base.BaseActivity;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
-    Intent start_intent;
-    @BindView(R.id.btn_01)
-    Button btn_01;
+public class MainActivity extends BaseActivity {
+//    @BindView(R.id.btn_01)
+//    Button btn_01;
 
     @OnClick(R.id.btn_01)
     void start() {
-        start_intent = new Intent(getApplicationContext(), RecyclerViewActivity.class);
-        startActivity(start_intent);
+        intent2Activity(RecyclerViewActivity.class);
     }
 
     @OnClick(R.id.btn_02)
     void start2() {
-        start_intent = new Intent(getApplicationContext(), TestTvActivity.class);
-        startActivity(start_intent);
+        intent2Activity(TestTvActivity.class);
+    }
+
+    @OnClick(R.id.btn_03)
+    void start3() {
+        showProgressDialog(true, "正在加载");
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                cancelProgressDialog();
+//                stopProgressDialog();
+            }
+        }, 3000);
     }
 
     @Override

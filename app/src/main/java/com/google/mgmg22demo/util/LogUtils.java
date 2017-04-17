@@ -86,9 +86,9 @@ public final class LogUtils {
 
         public Builder() {
             if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-                dir = MyApplication.getContext().getExternalCacheDir() + File.separator + "log" + File.separator;
+                dir = MyApplication.context.getExternalCacheDir() + File.separator + "log" + File.separator;
             } else {
-                dir = MyApplication.getContext().getCacheDir() + File.separator + "log" + File.separator;
+                dir = MyApplication.context.getCacheDir() + File.separator + "log" + File.separator;
             }
         }
 

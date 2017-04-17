@@ -15,29 +15,49 @@
         android:id="@+id/btn_01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="RecyclerView上拉加载下拉刷新" />
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="RecyclerView" />
 
     <Button
         android:id="@+id/btn_02"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="自定义控件例子" />
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="自定义控件" />
 
     <Button
         android:id="@+id/btn_03"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="加载动画" />
 
     <Button
         android:id="@+id/btn_04"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_text"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         android:text="" />
 
     <Button
         android:id="@+id/btn_05"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_text"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         android:text="" />
 </LinearLayout>

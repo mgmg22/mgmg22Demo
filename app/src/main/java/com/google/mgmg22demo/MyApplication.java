@@ -10,12 +10,12 @@ import com.google.gson.Gson;
 public class MyApplication extends Application {
     private static Gson mGson = new Gson();
     private static RequestQueue queue;
-    private static Context mContext;
+    public static Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext=this;
+        context=getApplicationContext();
         // 建立Volley全局请求队列
         queue = Volley.newRequestQueue(getApplicationContext()); // 实例化RequestQueue对象
     }
@@ -28,8 +28,8 @@ public class MyApplication extends Application {
         return mGson;
     }
 
-    public static Context getContext() {
-        return mContext;
-    }
+//    public static Context getContext() {
+//        return mContext;
+//    }
 
 }
