@@ -25,9 +25,8 @@ android {
     }
     //打包APK名称
     android.applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            output.outputFile = new File(output.outputFile.parent, defaultConfig.applicationId + "-" + buildType.name + "-v" +
-                    defaultConfig.versionName + "-" + defaultConfig.versionCode + ".apk");
+        variant.outputs.all {
+            outputFileName = "${variant.name}-${variant.versionName}.apk"
         }
     }
 }

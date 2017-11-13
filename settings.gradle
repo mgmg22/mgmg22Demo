@@ -13,10 +13,10 @@ def initLocalGradleEnvironment() {
 }
 
 def initVersion() {
-    gradle.ext.compileSdkVersion = 25
-    gradle.ext.buildToolsVersion = '25.0.2'
+    gradle.ext.compileSdkVersion = 26
+    gradle.ext.buildToolsVersion = '26.0.2'
     gradle.ext.minSdkVersion = 19
-    gradle.ext.supportVersion = '25.3.1'
+    gradle.ext.supportVersion = '26.1.0'
     gradle.ext.versionCode = 1
     gradle.ext.versionName = '0.1.0'
 }
