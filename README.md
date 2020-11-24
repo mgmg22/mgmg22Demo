@@ -1,9 +1,15 @@
 # mgmg22Demo
-volley+gson解析
+包含以下内容：
+一些UI效果实现
+工具类
+ktx 扩展和语法练习
 
-实现RecyclerView上拉加载,下拉刷新,点击、长按事件
+[网易云音乐宇宙尘埃特效][1]
+[获取进程名函数优化][2]
 
-使用了[CornerLabelView][1]
+
+[1]: https://juejin.cn/post/6871049441546567688        "网易云音乐宇宙尘埃特效"
+[2]: https://juejin.cn/post/6877127949452050446        "获取进程名函数优化"
 
 
-[1]: https://github.com/czy1121/cornerlabelview        "CornerLabelView" 
+TODO commonLib
