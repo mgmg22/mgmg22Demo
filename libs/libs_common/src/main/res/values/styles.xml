@@ -1,0 +1,84 @@
+<resources>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+
+    <!-- 超大标题文本的样式 -->
+    <style name="text_font_large">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_c4</item>
+        <item name="android:textSize">@dimen/text_font_large</item>
+        <!--<item name="android:lineSpacingExtra">6sp</item>-->
+        <item name="android:textStyle">bold</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <!-- 大标题文本的样式 -->
+    <style name="text_font_big">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_c4</item>
+        <item name="android:textSize">@dimen/text_font_big</item>
+        <!--<item name="android:lineSpacingExtra">6sp</item>-->
+    </style>
+    <!-- 副标题文本或正文文本的样式 -->
+    <style name="text_font_middle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_c1</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+        <!--<item name="android:lineSpacingExtra">8sp</item>-->
+    </style>
+
+    <style name="text_font_default">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_c4</item>
+        <item name="android:textSize">@dimen/text_font_normal</item>
+        <!--<item name="android:lineSpacingExtra">8sp</item>-->
+    </style>
+    <!-- 次文本的样式 -->
+    <style name="text_font_small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_c4</item>
+        <item name="android:textColorHint">@color/text_c15</item>
+        <item name="android:textSize">@dimen/text_font_small</item>
+        <!--<item name="android:lineSpacingExtra">8sp</item>-->
+    </style>
+    <!-- 小文本的样式 -->
+    <style name="text_font_little">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_c6</item>
+        <item name="android:textSize">@dimen/text_font_little</item>
+        <!--<item name="android:lineSpacingExtra">6sp</item>-->
+    </style>
+
+    <style name="CustomDialog" parent="@android:style/Theme.Holo.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!-- 项目中的分割线 -->
+    <style name="divider">
+        <item name="android:background">@color/dividerColor</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_0_5</item>
+    </style>
+
+    <style name="shadow">
+        <item name="android:background">#E5E5E5</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+</resources>

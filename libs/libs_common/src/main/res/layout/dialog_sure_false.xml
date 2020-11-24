@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dp_315"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_round_white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dp_20">
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_16" />
+
+    <TextView
+        android:id="@+id/tv_icon_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:textColor="#333"
+        android:textSize="@dimen/sp_14"
+        android:visibility="gone"
+        tools:text="即将创建的订单" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:textColor="#333"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        tools:text="已超过试用期限额￥100,000" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#999"
+        android:textSize="@dimen/sp_14"
+        tools:text="申请审核认证，通过后可无限额采购" />
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="@dimen/dp_315"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="@dimen/dp_30"
+        android:paddingTop="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_30"
+        android:paddingBottom="@dimen/dp_20">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_40"
+            android:background="@drawable/bg_dialog_cancel"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/theme_red"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_sure"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_40"
+            android:background="@drawable/bg_dialog_sure"
+            android:gravity="center"
+            android:text="确认"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>
