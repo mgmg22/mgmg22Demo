@@ -11,7 +11,6 @@ import android.widget.AbsListView;
 import android.widget.AbsSeekBar;
 
 
-import com.google.mgmg22.lib_slide_back.calculator.SwipeDistanceCalculator;
 import com.google.mgmg22.lib_slide_back.internal.ScrimView;
 import com.google.mgmg22.lib_slide_back.internal.SwipeHelper;
 import com.google.mgmg22.lib_slide_back.internal.ViewCompat;
@@ -77,9 +76,6 @@ public abstract class SwipeConsumer {
     protected int mSwipeMaxDistance;
     /**
      * distance to display for subclass to show UI
-     * these value is the calculate result by {@link SwipeDistanceCalculator}
-     *
-     * @see SwipeDistanceCalculator
      */
     protected int mCurDisplayDistanceX, mCurDisplayDistanceY;
     protected float mProgress;
@@ -108,9 +104,7 @@ public abstract class SwipeConsumer {
      */
     protected int mOpenDistance;
     protected float mOverSwipeFactor = 0F;
-    protected SwipeDistanceCalculator mSwipeDistanceCalculator;
     protected boolean mDisableSwipeOnSettling;
-    protected Object mTag;
     protected Integer mMaxSettleDuration;
     /**
      * by default: enable nested scroll and nested fly for all direction
@@ -546,17 +540,11 @@ public abstract class SwipeConsumer {
             }
             if ((mDirection & DIRECTION_HORIZONTAL) > 0) {
                 int realDistanceX = clampedDistanceX;
-                if (mSwipeDistanceCalculator != null) {
-                    realDistanceX = mSwipeDistanceCalculator.calculateSwipeDistance(clampedDistanceX, mProgress);
-                }
                 dx = realDistanceX - mCurDisplayDistanceX;
                 dy = 0;
                 mCurDisplayDistanceX = realDistanceX;
             } else if ((mDirection & DIRECTION_VERTICAL) > 0) {
                 int realDistanceY = clampedDistanceY;
-                if (mSwipeDistanceCalculator != null) {
-                    realDistanceY = mSwipeDistanceCalculator.calculateSwipeDistance(clampedDistanceY, mProgress);
-                }
                 dx = 0;
                 dy = realDistanceY - mCurDisplayDistanceY;
                 mCurDisplayDistanceY = realDistanceY;
@@ -576,7 +564,6 @@ public abstract class SwipeConsumer {
      * @param distanceYToDisplay distance changed in pixels along the Y axis to show UI
      * @param dx                 Change in X position from the last call
      * @param dy                 Change in Y position from the last call
-     * @see SwipeDistanceCalculator
      */
     protected abstract void onDisplayDistanceChanged(int distanceXToDisplay, int distanceYToDisplay, int dx, int dy);
 
@@ -604,9 +591,6 @@ public abstract class SwipeConsumer {
 
     /**
      * init children via xml usage of {@link SmartSwipeWrapper}
-     *
-     * @see DrawerConsumer
-     * @see SlidingConsumer
      */
     protected void initChildrenFormXml() {
 
@@ -666,25 +650,6 @@ public abstract class SwipeConsumer {
 
 
     /**
-     * Determine if the supplied view is under the given point in the
-     * parent view's coordinate system.
-     *
-     * @param view Child view of the parent to hit test
-     * @param x    X position to test in the parent's coordinate system
-     * @param y    Y position to test in the parent's coordinate system
-     * @return true if the supplied view is under the given point, false otherwise
-     */
-    public boolean isViewUnder(View view, int x, int y) {
-        if (view == null) {
-            return false;
-        }
-        return x >= view.getLeft()
-                && x < view.getRight()
-                && y >= view.getTop()
-                && y < view.getBottom();
-    }
-
-    /**
      * Find the topmost child under the given point within the parent view's coordinate system.
      *
      * @param parentView the parent view
@@ -740,13 +705,6 @@ public abstract class SwipeConsumer {
         return mInterpolator;
     }
 
-    public SwipeConsumer setInterpolator(Interpolator interpolator) {
-        this.mInterpolator = interpolator;
-        if (mSwipeHelper != null && mWrapper != null) {
-            mSwipeHelper.setInterpolator(mWrapper.getContext(), interpolator);
-        }
-        return this;
-    }
 
     public float getSensitivity() {
         return mSensitivity;
@@ -767,17 +725,10 @@ public abstract class SwipeConsumer {
         return this;
     }
 
-    public int getEdgeSize() {
-        return mEdgeSize;
-    }
 
     public SwipeConsumer setEdgeSize(int edgeSize) {
         this.mEdgeSize = edgeSize;
         return this;
-    }
-
-    public SmartSwipeWrapper getWrapper() {
-        return mWrapper;
     }
 
     public SwipeHelper getSwipeHelper() {
@@ -792,38 +743,15 @@ public abstract class SwipeConsumer {
         return mProgress;
     }
 
-    public boolean isSwiping() {
-        return mSwiping;
-    }
 
     public int getSwipeOpenDistance() {
-        if (mSwipeDistanceCalculator != null) {
-            return mSwipeDistanceCalculator.calculateSwipeOpenDistance(mOpenDistance);
-        } else {
-            return mOpenDistance;
-        }
+        return mOpenDistance;
     }
 
     public int getOpenDistance() {
         return mOpenDistance;
     }
 
-    public SwipeConsumer setOpenDistance(int openDistance) {
-        this.mOpenDistance = openDistance;
-        this.mOpenDistanceSpecified = true;
-        return this;
-    }
-
-    /**
-     * remove all {@link SwipeListener} added via {@link #addListener(SwipeListener)}
-     *
-     * @return this
-     * @see #addListener(SwipeListener)
-     */
-    public SwipeConsumer removeAllListeners() {
-        mListeners.clear();
-        return this;
-    }
 
     public SwipeConsumer removeListener(SwipeListener listener) {
         mListeners.remove(listener);
@@ -848,150 +776,13 @@ public abstract class SwipeConsumer {
         return this;
     }
 
-    public SwipeDistanceCalculator getSwipeDistanceCalculator() {
-        return mSwipeDistanceCalculator;
-    }
-
-    /**
-     * set a calculator of swipe distance.
-     * by default: swipe distance is the same as drag distance, calculator can change this role
-     *
-     * @param calculator calculator
-     * @return this
-     * @see SwipeDistanceCalculator
-     * @see ScaledCalculator
-     */
-    public SwipeConsumer setSwipeDistanceCalculator(SwipeDistanceCalculator calculator) {
-        this.mSwipeDistanceCalculator = calculator;
-        return this;
-    }
-
-    public boolean isDisableSwipeOnSetting() {
-        return mDisableSwipeOnSettling;
-    }
-
-    /**
-     * disable to handle swipe event via user touch when automatically swipe is processing
-     *
-     * @param disable disable or not
-     * @return this
-     */
-    public SwipeConsumer setDisableSwipeOnSettling(boolean disable) {
-        this.mDisableSwipeOnSettling = disable;
-        return this;
-    }
-
     public float getOverSwipeFactor() {
         return mOverSwipeFactor;
-    }
-
-    /**
-     * set over swipe factor.
-     * max swipe distance = {@link #getSwipeOpenDistance()} * (1 + overSwipeFactor)
-     *
-     * @param overSwipeFactor over swipe factor
-     * @return this
-     */
-    public SwipeConsumer setOverSwipeFactor(float overSwipeFactor) {
-        if (overSwipeFactor >= 0) {
-            this.mOverSwipeFactor = overSwipeFactor;
-        }
-        return this;
-    }
-
-    /**
-     * Get the binding extension object
-     *
-     * @return extension object
-     */
-    public Object getTag() {
-        return mTag;
-    }
-
-    /**
-     * Bind an extension object if necessary
-     *
-     * @param tag The extension object
-     * @return this
-     */
-    public SwipeConsumer setTag(Object tag) {
-        this.mTag = tag;
-        return this;
-    }
-
-
-    public SwipeConsumer setMaxSettleDuration(int maxSettleDuration) {
-        this.mMaxSettleDuration = maxSettleDuration;
-        if (mSwipeHelper != null) {
-            mSwipeHelper.setMaxSettleDuration(maxSettleDuration);
-        }
-        return this;
-    }
-
-    public int getWidth() {
-        return mWidth;
-    }
-
-    /**
-     * set width to the ui, it works before SmartSwipeWrapper.onMeasure(int, int) invoked.
-     * <p>
-     * this value will be reset by {@link #onMeasure(int, int)}
-     *
-     * @param width the width of SmartSwipeWrapper
-     * @return this
-     */
-    public SwipeConsumer setWidth(int width) {
-        this.mWidth = width;
-        return this;
-    }
-
-    public int getHeight() {
-        return mHeight;
-    }
-
-    /**
-     * set height to the ui, it works before SmartSwipeWrapper.onMeasure(int, int) invoked.
-     * <p>
-     * this value will be reset by {@link #onMeasure(int, int)}
-     *
-     * @param height the height of SmartSwipeWrapper
-     * @return this
-     */
-    public SwipeConsumer setHeight(int height) {
-        this.mHeight = height;
-        return this;
     }
 
 
     public boolean isAutoCloseOnWrapperDetachedFromWindow() {
         return mAutoCloseOnWrapperDetachedFromWindow;
-    }
-
-    public SwipeConsumer open(final boolean smooth, final int direction) {
-        if (mDirection == DIRECTION_NONE) {
-            if (isDirectionEnable(direction)) {
-                mDirection = direction;
-                onSwipeAccepted(0, true, 0, 0);
-            } else {
-                return this;
-            }
-        } else if (mDirection != direction || mProgress == 1F) {
-            return this;
-        }
-        boolean isLocked = isDirectionLocked(mDirection);
-        if (!isLocked) {
-            final int curDirection = mDirection;
-            lockDirection(curDirection);
-            addListener(new SimpleSwipeListener() {
-                @Override
-                public void onSwipeOpened(SmartSwipeWrapper wrapper, SwipeConsumer consumer, int direction) {
-                    unlockDirection(curDirection);
-                    removeListener(this);
-                }
-            });
-        }
-        slideTo(smooth, 1F);
-        return this;
     }
 
     public SwipeConsumer close() {
@@ -1073,62 +864,6 @@ public abstract class SwipeConsumer {
         }
     }
 
-    public SwipeConsumer enableLeft() {
-        return enableDirection(DIRECTION_LEFT);
-    }
-
-    public SwipeConsumer enableRight() {
-        return enableDirection(DIRECTION_RIGHT);
-    }
-
-    public SwipeConsumer enableTop() {
-        return enableDirection(DIRECTION_TOP);
-    }
-
-    public SwipeConsumer enableBottom() {
-        return enableDirection(DIRECTION_BOTTOM);
-    }
-
-    public SwipeConsumer enableHorizontal() {
-        return enableDirection(DIRECTION_HORIZONTAL);
-    }
-
-    public SwipeConsumer enableVertical() {
-        return enableDirection(DIRECTION_VERTICAL);
-    }
-
-    public SwipeConsumer enableAllDirections() {
-        return enableDirection(DIRECTION_ALL);
-    }
-
-    public SwipeConsumer disableLeft() {
-        return disableDirection(DIRECTION_LEFT);
-    }
-
-    public SwipeConsumer disableRight() {
-        return disableDirection(DIRECTION_RIGHT);
-    }
-
-    public SwipeConsumer disableTop() {
-        return disableDirection(DIRECTION_TOP);
-    }
-
-    public SwipeConsumer disableBottom() {
-        return disableDirection(DIRECTION_BOTTOM);
-    }
-
-    public SwipeConsumer disableHorizontal() {
-        return disableDirection(DIRECTION_HORIZONTAL);
-    }
-
-    public SwipeConsumer disableVertical() {
-        return disableDirection(DIRECTION_VERTICAL);
-    }
-
-    public SwipeConsumer disableAllDirections() {
-        return disableDirection(DIRECTION_ALL);
-    }
-
     public SwipeConsumer enableDirection(int direction) {
         mEnableDirection |= direction;
         return this;
@@ -1144,18 +879,6 @@ public abstract class SwipeConsumer {
 
     public boolean isDirectionEnable(int direction) {
         return direction != DIRECTION_NONE && (mEnableDirection & direction) == direction;
-    }
-
-    public boolean isAllDirectionsEnable() {
-        return (mEnableDirection & DIRECTION_ALL) == DIRECTION_ALL;
-    }
-
-    public boolean isVerticalEnable() {
-        return (mEnableDirection & DIRECTION_VERTICAL) == DIRECTION_VERTICAL;
-    }
-
-    public boolean isHorizontalEnable() {
-        return (mEnableDirection & DIRECTION_HORIZONTAL) == DIRECTION_HORIZONTAL;
     }
 
     public boolean isLeftEnable() {
@@ -1174,71 +897,6 @@ public abstract class SwipeConsumer {
         return (mEnableDirection & DIRECTION_BOTTOM) != 0;
     }
 
-    public SwipeConsumer lockDirection(int direction, boolean lock) {
-        if (lock) {
-            return lockDirection(direction);
-        } else {
-            return unlockDirection(direction);
-        }
-    }
-
-    public SwipeConsumer lockLeft() {
-        return lockDirection(DIRECTION_LEFT);
-    }
-
-    public SwipeConsumer lockRight() {
-        return lockDirection(DIRECTION_RIGHT);
-    }
-
-    public SwipeConsumer lockTop() {
-        return lockDirection(DIRECTION_TOP);
-    }
-
-    public SwipeConsumer lockBottom() {
-        return lockDirection(DIRECTION_BOTTOM);
-    }
-
-    public SwipeConsumer lockHorizontal() {
-        return lockDirection(DIRECTION_HORIZONTAL);
-    }
-
-    public SwipeConsumer lockVertical() {
-        return lockDirection(DIRECTION_VERTICAL);
-    }
-
-    public SwipeConsumer lockAllDirections() {
-        return lockDirection(DIRECTION_ALL);
-    }
-
-    public SwipeConsumer unlockLeft() {
-        return unlockDirection(DIRECTION_LEFT);
-    }
-
-    public SwipeConsumer unlockRight() {
-        return unlockDirection(DIRECTION_RIGHT);
-    }
-
-    public SwipeConsumer unlockTop() {
-        return unlockDirection(DIRECTION_TOP);
-    }
-
-    public SwipeConsumer unlockBottom() {
-        return unlockDirection(DIRECTION_BOTTOM);
-    }
-
-    public SwipeConsumer unlockHorizontal() {
-        return unlockDirection(DIRECTION_HORIZONTAL);
-    }
-
-    public SwipeConsumer unlockVertical() {
-        return unlockDirection(DIRECTION_VERTICAL);
-    }
-
-    public SwipeConsumer unlockAllDirections() {
-        return unlockDirection(DIRECTION_ALL);
-    }
-
-
     public SwipeConsumer lockDirection(int direction) {
         mLockDirection |= direction;
         return this;
@@ -1253,17 +911,6 @@ public abstract class SwipeConsumer {
         return direction != DIRECTION_NONE && (mLockDirection & direction) == direction;
     }
 
-    public boolean isAllDirectionsLocked() {
-        return (mLockDirection & DIRECTION_ALL) == DIRECTION_ALL;
-    }
-
-    public boolean isVerticalLocked() {
-        return (mLockDirection & DIRECTION_VERTICAL) == DIRECTION_VERTICAL;
-    }
-
-    public boolean isHorizontalLocked() {
-        return (mLockDirection & DIRECTION_HORIZONTAL) == DIRECTION_HORIZONTAL;
-    }
 
     public boolean isLeftLocked() {
         return (mLockDirection & DIRECTION_LEFT) != 0;
@@ -1281,94 +928,14 @@ public abstract class SwipeConsumer {
         return (mLockDirection & DIRECTION_BOTTOM) != 0;
     }
 
-    public SwipeConsumer enableNestedScrollLeft(boolean enable) {
-        return enableNestedScroll(DIRECTION_LEFT, enable);
-    }
-
-    public SwipeConsumer enableNestedScrollRight(boolean enable) {
-        return enableNestedScroll(DIRECTION_RIGHT, enable);
-    }
-
-    public SwipeConsumer enableNestedScrollTop(boolean enable) {
-        return enableNestedScroll(DIRECTION_TOP, enable);
-    }
-
-    public SwipeConsumer enableNestedScrollBottom(boolean enable) {
-        return enableNestedScroll(DIRECTION_BOTTOM, enable);
-    }
-
-    public SwipeConsumer enableNestedScrollHorizontal(boolean enable) {
-        return enableNestedScroll(DIRECTION_HORIZONTAL, enable);
-    }
-
-    public SwipeConsumer enableNestedScrollVertical(boolean enable) {
-        return enableNestedScroll(DIRECTION_VERTICAL, enable);
-    }
-
-    public SwipeConsumer enableNestedScrollAllDirections(boolean enable) {
-        return enableNestedScroll(DIRECTION_ALL, enable);
-    }
-
-    private SwipeConsumer enableNestedScroll(int direction, boolean enable) {
-        if (enable) {
-            mEnableNested |= direction;
-        } else {
-            mEnableNested &= ~direction;
-        }
-        return this;
-    }
 
     public boolean isNestedScrollEnable(int direction) {
         return (mEnableNested & direction) == direction;
     }
 
-    public SwipeConsumer enableNestedFlyLeft(boolean enable) {
-        return enableNestedFly(DIRECTION_LEFT, enable);
-    }
-
-    public SwipeConsumer enableNestedFlyRight(boolean enable) {
-        return enableNestedFly(DIRECTION_RIGHT, enable);
-    }
-
-    public SwipeConsumer enableNestedFlyTop(boolean enable) {
-        return enableNestedFly(DIRECTION_TOP, enable);
-    }
-
-    public SwipeConsumer enableNestedFlyBottom(boolean enable) {
-        return enableNestedFly(DIRECTION_BOTTOM, enable);
-    }
-
-    public SwipeConsumer enableNestedFlyHorizontal(boolean enable) {
-        return enableNestedFly(DIRECTION_HORIZONTAL, enable);
-    }
-
-    public SwipeConsumer enableNestedFlyVertical(boolean enable) {
-        return enableNestedFly(DIRECTION_VERTICAL, enable);
-    }
-
-    public SwipeConsumer enableNestedFlyAllDirections(boolean enable) {
-        return enableNestedFly(DIRECTION_ALL, enable);
-    }
-
-    private SwipeConsumer enableNestedFly(int direction, boolean enable) {
-        if (enable) {
-            mEnableNested |= direction << 4;
-        } else {
-            mEnableNested &= ~(direction << 4);
-        }
-        return this;
-    }
 
     public boolean isNestedFlyEnable(int direction) {
         return ((mEnableNested >> 4) & direction) == direction;
-    }
-
-    public boolean isVerticalDirection() {
-        return (mDirection & DIRECTION_VERTICAL) > 0;
-    }
-
-    public boolean isHorizontalDirection() {
-        return (mDirection & DIRECTION_HORIZONTAL) > 0;
     }
 
     public void smoothSlideTo(int startX, int startY, int finalX, int finalY) {
@@ -1385,22 +952,4 @@ public abstract class SwipeConsumer {
         }
     }
 
-    public boolean isOpened() {
-        return getDragState() == SwipeHelper.STATE_IDLE && mProgress >= PROGRESS_OPEN;
-    }
-
-    public boolean isClosed() {
-        return getDragState() == SwipeHelper.STATE_IDLE && mProgress <= PROGRESS_CLOSE;
-    }
-
-    public <T extends SwipeConsumer> T as(Class<T> clazz) {
-        return (T) this;
-    }
-
-    public <T extends SwipeConsumer> T addConsumer(T consumer) {
-        if (mWrapper != null) {
-            return mWrapper.addConsumer(consumer);
-        }
-        return consumer;
-    }
 }

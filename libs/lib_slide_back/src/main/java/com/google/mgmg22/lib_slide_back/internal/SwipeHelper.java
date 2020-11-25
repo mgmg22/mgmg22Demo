@@ -17,8 +17,9 @@ import java.util.Arrays;
 
 /**
  * This class is copy and modified from ViewDragHelper
- *  1. mCapturedView removed. use mClampedDistanceX and mClampedDistanceY instead
- *  2. Callback removed. use {@link SwipeConsumer} to consume the motion event
+ * 1. mCapturedView removed. use mClampedDistanceX and mClampedDistanceY instead
+ * 2. Callback removed. use {@link SwipeConsumer} to consume the motion event
+ *
  * @author billy.qi
  */
 public class SwipeHelper {
@@ -73,7 +74,6 @@ public class SwipeHelper {
     private float mMaxVelocity;
     private float mMinVelocity;
     private OverScroller mScroller;
-    private boolean mReleaseInProgress;
     private int mClampedDistanceX;
     private int mClampedDistanceY;
 
@@ -82,8 +82,8 @@ public class SwipeHelper {
      * This will allow VDH to use internal compatibility implementations for different
      * platform versions.
      *
-     * @param context Context to initialize config-dependent params from
-     * @param forParent Parent view to monitor
+     * @param context      Context to initialize config-dependent params from
+     * @param forParent    Parent view to monitor
      * @param interpolator interpolator for animation
      */
     private SwipeHelper(Context context, ViewGroup forParent, SwipeConsumer cb, Interpolator interpolator) {
@@ -108,8 +108,8 @@ public class SwipeHelper {
     /**
      * Factory method to create a new SwipeHelper.
      *
-     * @param forParent Parent view to monitor
-     * @param consumer Callback to provide information and receive events
+     * @param forParent    Parent view to monitor
+     * @param consumer     Callback to provide information and receive events
      * @param interpolator interpolator for animation
      * @return a new SwipeHelper instance
      */
@@ -117,17 +117,13 @@ public class SwipeHelper {
         return new SwipeHelper(forParent.getContext(), forParent, consumer, interpolator);
     }
 
-    public static SwipeHelper create(ViewGroup forParent, SwipeConsumer consumer) {
-        return create(forParent, consumer, null);
-    }
-
     /**
      * Factory method to create a new SwipeHelper.
      *
-     * @param forParent Parent view to monitor
-     * @param sensitivity Multiplier for how sensitive the helper should be about detecting
-     *                    the start of a drag. Larger values are more sensitive. 1.0f is normal.
-     * @param consumer Callback to provide information and receive events
+     * @param forParent    Parent view to monitor
+     * @param sensitivity  Multiplier for how sensitive the helper should be about detecting
+     *                     the start of a drag. Larger values are more sensitive. 1.0f is normal.
+     * @param consumer     Callback to provide information and receive events
      * @param interpolator interpolator for animation
      * @return a new SwipeHelper instance
      */
@@ -135,14 +131,6 @@ public class SwipeHelper {
         final SwipeHelper helper = create(forParent, consumer, interpolator);
         helper.mTouchSlop = (int) (helper.mTouchSlop * (1 / sensitivity));
         return helper;
-    }
-
-    public static SwipeHelper create(ViewGroup forParent, float sensitivity, SwipeConsumer cb) {
-        return create(forParent, sensitivity, cb, null);
-    }
-
-    public void setSensitivity(float sensitivity) {
-        mTouchSlop = (int) (viewConfiguration.getScaledTouchSlop() * (1 / sensitivity));
     }
 
     public void setInterpolator(Context context, Interpolator interpolator) {
@@ -156,32 +144,11 @@ public class SwipeHelper {
         mScroller = new OverScroller(context, interpolator);
     }
 
-    /**
-     * Return the currently configured minimum velocity. Any flings with a magnitude less
-     * than this value in pixels per second. Callback methods accepting a velocity will receive
-     * zero as a velocity value if the real detected velocity was below this threshold.
-     *
-     * @return the minimum velocity that will be detected
-     */
-    public float getMinVelocity() {
-        return mMinVelocity;
-    }
-
-    /**
-     * Set the minimum velocity that will be detected as having a magnitude greater than zero
-     * in pixels per second. Callback methods accepting a velocity will be clamped appropriately.
-     *
-     * @param minVel Minimum velocity to detect
-     * @return this
-     */
-    public SwipeHelper setMinVelocity(float minVel) {
-        mMinVelocity = minVel;
-        return this;
-    }
 
     /**
      * Retrieve the current drag state of this helper. This will return one of
      * {@link #STATE_IDLE}, {@link #STATE_DRAGGING} or {@link #STATE_SETTLING} or {@link #STATE_NONE_TOUCH}.
+     *
      * @return The current drag state
      */
     public int getDragState() {
@@ -196,22 +163,6 @@ public class SwipeHelper {
 //                mClampedDistanceX = mClampedDistanceY = 0;
 //            }
         }
-    }
-
-    /**
-     * @return The ID of the pointer currently dragging
-     *         or {@link #INVALID_POINTER}.
-     */
-    public int getActivePointerId() {
-        return mActivePointerId;
-    }
-
-    /**
-     * @return The minimum distance in pixels that the user must travel to initiate a drag
-     */
-
-    public int getTouchSlop() {
-        return mTouchSlop;
     }
 
     /**
@@ -278,33 +229,11 @@ public class SwipeHelper {
 
     /**
      * Settle the captured view at the given (left, top) position.
-     * The appropriate velocity from prior motion will be taken into account.
-     * If this method returns true, the caller should invoke {@link #continueSettling()}
-     * on each subsequent frame to continue the motion until it returns false. If this method
-     * returns false there is no further work to do to complete the movement.
-     *
-     * @param finalX Settled left edge position for the captured view
-     * @param finalY Settled top edge position for the captured view
-     * @return true if animation should continue through {@link #continueSettling()} calls
-     */
-    public boolean settleCapturedViewAt(int finalX, int finalY) {
-        if (!mReleaseInProgress) {
-            throw new IllegalStateException("Cannot settleCapturedViewAt outside of a call to "
-                    + "Callback#onViewReleased");
-        }
-
-        return smoothSettleCapturedViewTo(finalX, finalY,
-                (int) mVelocityTracker.getXVelocity(mActivePointerId),
-                (int) mVelocityTracker.getYVelocity(mActivePointerId));
-    }
-
-    /**
-     * Settle the captured view at the given (left, top) position.
      *
      * @param finalX Target left position for the captured view
      * @param finalY Target top position for the captured view
-     * @param xvel Horizontal velocity
-     * @param yvel Vertical velocity
+     * @param xvel   Horizontal velocity
+     * @param yvel   Vertical velocity
      * @return true if animation should continue through {@link #continueSettling()} calls
      */
     private boolean smoothSettleCapturedViewTo(int finalX, int finalY, int xvel, int yvel) {
@@ -376,7 +305,7 @@ public class SwipeHelper {
      * If the value is below the minimum, it will be clamped to zero.
      * If the value is above the maximum, it will be clamped to the maximum.
      *
-     * @param value Value to clamp
+     * @param value  Value to clamp
      * @param absMin Absolute value of the minimum significant value to return
      * @param absMax Absolute value of the maximum value to return
      * @return The clamped value with the same sign as <code>value</code>
@@ -397,7 +326,7 @@ public class SwipeHelper {
      * If the value is below the minimum, it will be clamped to zero.
      * If the value is above the maximum, it will be clamped to the maximum.
      *
-     * @param value Value to clamp
+     * @param value  Value to clamp
      * @param absMin Absolute value of the minimum significant value to return
      * @param absMax Absolute value of the maximum value to return
      * @return The clamped value with the same sign as <code>value</code>
@@ -456,14 +385,12 @@ public class SwipeHelper {
     /**
      * Like all callback events this must happen on the UI thread, but release
      * involves some extra semantics. During a release (mReleaseInProgress)
-     * is the only time it is valid to call {@link #settleCapturedViewAt(int, int)}
+     *
      * @param xvel x velocity
      * @param yvel y velocity
      */
     public void dispatchViewReleased(float xvel, float yvel) {
-        mReleaseInProgress = true;
         mSwipeConsumer.onSwipeReleased(xvel, yvel);
-        mReleaseInProgress = false;
 
         if (mDragState == STATE_DRAGGING) {
             // onViewReleased didn't call a method that would have changed this. Go idle.
@@ -881,10 +808,10 @@ public class SwipeHelper {
     }
 
 
-
     public boolean nestedScrollingTrySwipe(int dx, int dy, boolean fly) {
         return trySwipe(fly ? POINTER_NESTED_FLY : POINTER_NESTED_SCROLL, false, 0, 0, dx, dy, false);
     }
+
     public boolean nestedScrollingDrag(int dx, int dy, int[] consumed, boolean fly) {
         if (mDragState == STATE_IDLE) {
             return nestedScrollingTrySwipe(dx, dy, fly);
@@ -947,10 +874,6 @@ public class SwipeHelper {
             return false;
         }
         return true;
-    }
-
-    public int getMaxSettleDuration() {
-        return maxSettleDuration;
     }
 
     public void setMaxSettleDuration(int maxSettleDuration) {

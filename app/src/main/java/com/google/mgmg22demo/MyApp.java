@@ -40,7 +40,6 @@ public class MyApp extends BaseApplication {
         final int edgeSize = 0; // 强制设置有效边缘尺寸为全屏！！！
         final int shadowColor = 0x80000000;
         final int shadowSize = SmartSwipe.dp2px(10, application);
-        final int direction = DIRECTION_LEFT;
 
         activityBack(application, new SmartSwipeBack.SwipeBackConsumerFactory() {
             @Override
@@ -51,7 +50,7 @@ public class MyApp extends BaseApplication {
                         .setShadowColor(shadowColor)
                         .setShadowSize(shadowSize)
                         .setEdgeSize(edgeSize)
-                        .enableDirection(direction)
+                        .enableDirection(DIRECTION_LEFT)
                         .addListener(new SimpleSwipeListener() {
                             @Override
                             public void onSwipeOpened(SmartSwipeWrapper wrapper, SwipeConsumer consumer, int direction) {

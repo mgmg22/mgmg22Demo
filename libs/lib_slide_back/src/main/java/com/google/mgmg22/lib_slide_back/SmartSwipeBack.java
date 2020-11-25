@@ -2,15 +2,11 @@ package com.google.mgmg22.lib_slide_back;
 
 import android.app.Activity;
 import android.app.Application;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.mgmg22.lib_slide_back.consumer.ActivitySlidingBackConsumer;
-import com.google.mgmg22.lib_slide_back.listener.SimpleSwipeListener;
 
 import java.util.ArrayList;
-
-import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_LEFT;
 
 
 /**
@@ -57,36 +53,6 @@ public class SmartSwipeBack {
         application.registerActivityLifecycleCallbacks(activitySwipeBackListener);
     }
 
-    public static void activitySlidingBack(Application application, SmartSwipeBack.ActivitySwipeBackFilter filter) {
-        final float factor = 0.5f;
-//        final int edgeSize = SmartSwipe.dp2px(20, application);
-        final int edgeSize = 0; // 强制设置有效边缘尺寸为全屏！！！
-        final int shadowColor = 0x80000000;
-        final int shadowSize = SmartSwipe.dp2px(10, application);
-        final int direction = DIRECTION_LEFT;
-
-        activityBack(application, new SwipeBackConsumerFactory() {
-            @Override
-            public SwipeConsumer createSwipeBackConsumer(final Activity activity) {
-                return new ActivitySlidingBackConsumer(activity)
-                        .setRelativeMoveFactor(factor)
-                        .setScrimColor(Color.TRANSPARENT)
-                        .setShadowColor(shadowColor)
-                        .setShadowSize(shadowSize)
-                        .setEdgeSize(edgeSize)
-                        .enableDirection(direction)
-                        .addListener(new SimpleSwipeListener() {
-                            @Override
-                            public void onSwipeOpened(SmartSwipeWrapper wrapper, SwipeConsumer consumer, int direction) {
-                                if (activity != null) {
-                                    activity.finish();
-                                    activity.overridePendingTransition(R.anim.anim_none, R.anim.anim_none);
-                                }
-                            }
-                        });
-            }
-        }, filter);
-    }
 
     ////////////////////////////////////////////
     //
@@ -147,7 +113,7 @@ public class SmartSwipeBack {
             if (mFactory == null) {
                 return;
             }
-            if ((mFilter != null && !mFilter.onFilter(activity)) ) {
+            if ((mFilter != null && !mFilter.onFilter(activity))) {
                 return;
             }
             SmartSwipe.wrap(activity).addConsumer(mFactory.createSwipeBackConsumer(activity));

@@ -2,23 +2,22 @@ package com.google.mgmg22.lib_slide_back.consumer;
 
 import android.view.View;
 
-
 import com.google.mgmg22.lib_slide_back.SmartSwipe;
 
 import static android.view.View.VISIBLE;
-import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_BOTTOM;
-import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_LEFT;
-import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_RIGHT;
-import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_TOP;
 
 /**
  * @author billy.qi
  */
 public class SlidingConsumer extends DrawerConsumer {
-    /** contentView moves above the drawer view, drawer view show below contentView */
+    /**
+     * contentView moves above the drawer view, drawer view show below contentView
+     */
     public static final float FACTOR_COVER = 0F;
 
-    /** Default factor, contentView moves and drawer view followed pixel by pixel */
+    /**
+     * Default factor, contentView moves and drawer view followed pixel by pixel
+     */
     public static final float FACTOR_FOLLOW = 1F;
 
     protected float mRelativeMoveFactor = 0.5F;
@@ -51,30 +50,41 @@ public class SlidingConsumer extends DrawerConsumer {
                 if (mEdgeAffinity && l > 0) {
                     l = 0;
                 }
-                r = l + w;  t = 0;      b = h;
+                r = l + w;
+                t = 0;
+                b = h;
                 break;
             case DIRECTION_RIGHT:
                 l = mWidth - initDistance;
-                r = l + w;  t = 0;      b = h;
+                r = l + w;
+                t = 0;
+                b = h;
                 if (mEdgeAffinity && r < mWidth) {
                     r = mWidth;
                     l = r - w;
                 }
                 break;
             case DIRECTION_TOP:
-                l = 0;      r = mWidth; t = -h + initDistance;
+                l = 0;
+                r = mWidth;
+                t = -h + initDistance;
                 if (mEdgeAffinity && t > 0) {
                     t = 0;
                 }
-                b = t + h; break;
+                b = t + h;
+                break;
             case DIRECTION_BOTTOM:
-                l = 0;      r = mWidth; t = mHeight - initDistance;b = t + h;
+                l = 0;
+                r = mWidth;
+                t = mHeight - initDistance;
+                b = t + h;
                 if (mEdgeAffinity && b < mHeight) {
                     b = mHeight;
                     t = b - h;
                 }
                 break;
-            default: break;
+            default:
+                break;
         }
     }
 
@@ -183,7 +193,8 @@ public class SlidingConsumer extends DrawerConsumer {
                     scrollY = (int) ((mOpenDistance + mCurDisplayDistanceY) * (1 - mRelativeMoveFactor));
                     scrollY = Math.max(scrollY, 0);
                     break;
-                default: break;
+                default:
+                    break;
             }
             drawerView.layout(left, top, right, bottom);
             //compat for contentView background is transparent
@@ -192,12 +203,9 @@ public class SlidingConsumer extends DrawerConsumer {
         }
     }
 
-    public float getRelativeMoveFactor() {
-        return mRelativeMoveFactor;
-    }
-
     /**
      * Set the movement factor of drawer view relative to content view
+     *
      * @param factor Multiplier of mCurDrawerView relative movement to mWrapper.getContentView().
      *               this value must to be between 0F and 1F.
      *               0: drawer view not move
@@ -210,50 +218,4 @@ public class SlidingConsumer extends DrawerConsumer {
         return this;
     }
 
-    public boolean isEdgeAffinity() {
-        return mEdgeAffinity;
-    }
-
-    /**
-     * set drawer is affinity to the edge or not
-     * <pre>
-     * this property make effect when {@link #mDrawerExpandable} is false and {@link #mSwipeMaxDistance} is bigger than drawerView`s size(width or height).
-     * it may be cause by:
-     *  1. {@link #mSwipeOpenDistance} is bigger than drawerView`s size via {@link #setOpenDistance(int)}
-     *  2. {@link #mOverSwipeFactor} is bigger than 0F via {@link #setOverSwipeFactor(float)}
-     * </pre>
-     * if set true, drawer view adsorbs to {@link SmartSwipeWrapper}`s edge
-     * @param affinity adsorbs to edge or not
-     * @return this
-     * @see #setOpenDistance(int)
-     * @see #setOverSwipeFactor(float)
-     * @see #setDrawerExpandable(boolean)
-     */
-    public SlidingConsumer setEdgeAffinity(boolean affinity) {
-        this.mEdgeAffinity = affinity;
-        return this;
-    }
-
-    public boolean isDrawerExpandable() {
-        return mDrawerExpandable;
-    }
-
-    /**
-     * determine whether drawers expandable.
-     * <pre>
-     * this property make effect when {@link #mSwipeMaxDistance} is bigger than drawerView`s size(width or height).
-     * it may be cause by:
-     *  1. {@link #mSwipeOpenDistance} is bigger than drawerView`s size via {@link #setOpenDistance(int)}
-     *  2. {@link #mOverSwipeFactor} is bigger than 0F via {@link #setOverSwipeFactor(float)}
-     * </pre>
-     * if set true, {@link #setEdgeAffinity(boolean)} will be ignored.
-     * @param expandable expandable or not
-     * @return this
-     * @see #setEdgeAffinity(boolean)
-     * @see #setOverSwipeFactor(float)
-     */
-    public SlidingConsumer setDrawerExpandable(boolean expandable) {
-        this.mDrawerExpandable = expandable;
-        return this;
-    }
 }

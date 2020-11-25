@@ -4,7 +4,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-
 import com.google.mgmg22.lib_slide_back.SmartSwipe;
 import com.google.mgmg22.lib_slide_back.SmartSwipeWrapper;
 import com.google.mgmg22.lib_slide_back.SwipeConsumer;
@@ -14,7 +13,6 @@ import com.google.mgmg22.lib_slide_back.internal.ViewCompat;
 import com.google.mgmg22.lib_slide_back.listener.SwipeListener;
 
 import static android.view.View.VISIBLE;
-import static com.google.mgmg22.lib_slide_back.internal.SwipeUtil.getReverseDirection;
 
 /**
  * contains content view and at most 4 drawer view
@@ -187,7 +185,7 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
             if (mShadowColor != 0 && mShadowSize > 0) {
                 int shadowDirection = this.mDirection;
                 if (mShowScrimAndShadowOutsideContentView) {
-                    shadowDirection = getReverseDirection(mDirection);
+                    shadowDirection = (mDirection);
                 }
                 mScrimView.setDirection(this.mDirection, mShadowColor, shadowDirection, mShadowSize, mWidth, mHeight);
             }
@@ -197,11 +195,32 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
 
     protected void calculateDrawerDirectionInitPosition(int direction, int w, int h) {
         switch (direction) {
-            case DIRECTION_LEFT:    l = -w;     r = l + w;  t = 0;      b = h; break;
-            case DIRECTION_RIGHT:   l = mWidth; r = l + w;  t = 0;      b = h; break;
-            case DIRECTION_TOP:     l = 0;      r = mWidth; t = -h;     b = t + h; break;
-            case DIRECTION_BOTTOM:  l = 0;      r = mWidth; t = mHeight;b = t + h; break;
-            default: break;
+            case DIRECTION_LEFT:
+                l = -w;
+                r = l + w;
+                t = 0;
+                b = h;
+                break;
+            case DIRECTION_RIGHT:
+                l = mWidth;
+                r = l + w;
+                t = 0;
+                b = h;
+                break;
+            case DIRECTION_TOP:
+                l = 0;
+                r = mWidth;
+                t = -h;
+                b = t + h;
+                break;
+            case DIRECTION_BOTTOM:
+                l = 0;
+                r = mWidth;
+                t = mHeight;
+                b = t + h;
+                break;
+            default:
+                break;
         }
     }
 
@@ -260,18 +279,34 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
             int l = 0, r = mWidth, t = 0, b = mHeight;
             if (mShowScrimAndShadowOutsideContentView) {
                 switch (mDirection) {
-                    case DIRECTION_LEFT:    r = mCurDisplayDistanceX;  break;
-                    case DIRECTION_RIGHT:   l = r + mCurDisplayDistanceX;  break;
-                    case DIRECTION_TOP:     b = mCurDisplayDistanceY;  break;
-                    case DIRECTION_BOTTOM:  t = b + mCurDisplayDistanceY;  break;
+                    case DIRECTION_LEFT:
+                        r = mCurDisplayDistanceX;
+                        break;
+                    case DIRECTION_RIGHT:
+                        l = r + mCurDisplayDistanceX;
+                        break;
+                    case DIRECTION_TOP:
+                        b = mCurDisplayDistanceY;
+                        break;
+                    case DIRECTION_BOTTOM:
+                        t = b + mCurDisplayDistanceY;
+                        break;
                     default:
                 }
             } else {
                 switch (mDirection) {
-                    case DIRECTION_LEFT:    l = mCurDisplayDistanceX;  break;
-                    case DIRECTION_RIGHT:   r = r + mCurDisplayDistanceX;  break;
-                    case DIRECTION_TOP:     t = mCurDisplayDistanceY;  break;
-                    case DIRECTION_BOTTOM:  b = b + mCurDisplayDistanceY;  break;
+                    case DIRECTION_LEFT:
+                        l = mCurDisplayDistanceX;
+                        break;
+                    case DIRECTION_RIGHT:
+                        r = r + mCurDisplayDistanceX;
+                        break;
+                    case DIRECTION_TOP:
+                        t = mCurDisplayDistanceY;
+                        break;
+                    case DIRECTION_BOTTOM:
+                        b = b + mCurDisplayDistanceY;
+                        break;
                     default:
                 }
             }
@@ -283,7 +318,7 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
     @Override
     protected void notifySwipeStart() {
         if (mCurDrawerView instanceof SwipeListener) {
-            ((SwipeListener)mCurDrawerView).onSwipeStart(mWrapper, this, mDirection);
+            ((SwipeListener) mCurDrawerView).onSwipeStart(mWrapper, this, mDirection);
         }
         super.notifySwipeStart();
     }
@@ -307,11 +342,20 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
     public View getDrawerView(int direction) {
         int viewIndex = -1;
         switch (direction) {
-            default: break;
-            case DIRECTION_LEFT:    viewIndex = 0; break;
-            case DIRECTION_RIGHT:   viewIndex = 1; break;
-            case DIRECTION_TOP:     viewIndex = 2; break;
-            case DIRECTION_BOTTOM:  viewIndex = 3; break;
+            default:
+                break;
+            case DIRECTION_LEFT:
+                viewIndex = 0;
+                break;
+            case DIRECTION_RIGHT:
+                viewIndex = 1;
+                break;
+            case DIRECTION_TOP:
+                viewIndex = 2;
+                break;
+            case DIRECTION_BOTTOM:
+                viewIndex = 3;
+                break;
         }
         if (viewIndex < 0) {
             return null;
@@ -322,12 +366,15 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
     public DrawerConsumer setLeftDrawerView(View drawerView) {
         return setDrawerView(DIRECTION_LEFT, drawerView);
     }
+
     public DrawerConsumer setRightDrawerView(View drawerView) {
         return setDrawerView(DIRECTION_RIGHT, drawerView);
     }
+
     public DrawerConsumer setTopDrawerView(View drawerView) {
         return setDrawerView(DIRECTION_TOP, drawerView);
     }
+
     public DrawerConsumer setBottomDrawerView(View drawerView) {
         return setDrawerView(DIRECTION_BOTTOM, drawerView);
     }
@@ -335,22 +382,23 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
     /**
      * set a extension to the direction, also set direction enable if drawerView is not null(otherwise, disable the direction)
      * direction can be a single direction or mixed direction(eg: DIRECTION_LEFT | DIRECTION_RIGHT)
-     * @param direction direction to set
+     *
+     * @param direction  direction to set
      * @param drawerView view
      * @return this
      */
     public DrawerConsumer setDrawerView(int direction, View drawerView) {
         enableDirection(direction, drawerView != null);
-        if ((direction & DIRECTION_LEFT)    > 0) {
+        if ((direction & DIRECTION_LEFT) > 0) {
             setOrUpdateDrawerView(0, drawerView);
         }
-        if ((direction & DIRECTION_RIGHT)   > 0) {
+        if ((direction & DIRECTION_RIGHT) > 0) {
             setOrUpdateDrawerView(1, drawerView);
         }
-        if ((direction & DIRECTION_TOP)     > 0) {
+        if ((direction & DIRECTION_TOP) > 0) {
             setOrUpdateDrawerView(2, drawerView);
         }
-        if ((direction & DIRECTION_BOTTOM)  > 0) {
+        if ((direction & DIRECTION_BOTTOM) > 0) {
             setOrUpdateDrawerView(3, drawerView);
         }
         return this;
@@ -370,7 +418,7 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
         final SmartSwipeWrapper wrapper = mWrapper;
         if (drawerView != null && wrapper != null && drawerView.getParent() != wrapper) {
             if (drawerView.getParent() != null) {
-                ((ViewGroup)drawerView.getParent()).removeView(drawerView);
+                ((ViewGroup) drawerView.getParent()).removeView(drawerView);
             }
             int contentViewIndex = wrapper.indexOfChild(wrapper.getContentView());
             if (contentViewIndex >= 0) {
@@ -378,9 +426,16 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
                 if (lp == null) {
                     int w = FrameLayout.LayoutParams.WRAP_CONTENT, h = FrameLayout.LayoutParams.WRAP_CONTENT;
                     switch (index) {
-                        default: break;
-                        case 0: case 1: h = FrameLayout.LayoutParams.MATCH_PARENT; break;
-                        case 2: case 3: w = FrameLayout.LayoutParams.MATCH_PARENT; break;
+                        default:
+                            break;
+                        case 0:
+                        case 1:
+                            h = FrameLayout.LayoutParams.MATCH_PARENT;
+                            break;
+                        case 2:
+                        case 3:
+                            w = FrameLayout.LayoutParams.MATCH_PARENT;
+                            break;
                     }
                     lp = new FrameLayout.LayoutParams(w, h);
                     drawerView.setLayoutParams(lp);
@@ -404,6 +459,7 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
 
     /**
      * Set a color to use for the scrim that obscures primary content while a drawer is open.
+     *
      * @param color Color to use in 0xAARRGGBB format.
      * @return this
      */
@@ -414,7 +470,8 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
 
     /**
      * Set a color to use for the shadow at the edge of content view while a drawer is open.
-     * @param shadowColor  Color to use in 0xAARRGGBB format.
+     *
+     * @param shadowColor Color to use in 0xAARRGGBB format.
      * @return this
      */
     public DrawerConsumer setShadowColor(int shadowColor) {
@@ -424,6 +481,7 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
 
     /**
      * set the size of shadow at the edge of content view while a drawer is open.
+     *
      * @param size shadow size in pixel
      * @return this
      */
@@ -436,6 +494,7 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
      * set the extension view as drawer is required or not
      * it useful inside this sdk framework,
      * developers who use this SDK do not call this function unless you really know what its mean
+     *
      * @param required required or not
      * @return this
      */
@@ -459,7 +518,7 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
 
     @Override
     protected boolean canChildScroll(ViewGroup parentView, int direction, int pointerId, float downX, float downY, float dx, float dy) {
-        if (mDirection != DIRECTION_NONE && mWrapper.getContentView() == findTopChildUnder(parentView, (int)downX, (int)downY)) {
+        if (mDirection != DIRECTION_NONE && mWrapper.getContentView() == findTopChildUnder(parentView, (int) downX, (int) downY)) {
             return false;
         }
         return super.canChildScroll(parentView, direction, pointerId, downX, downY, dx, dy);

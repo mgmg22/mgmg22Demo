@@ -120,8 +120,4 @@ public class ScrimView extends View {
         LinearGradient shader = new LinearGradient(l, t, r, b, colors, positions, LinearGradient.TileMode.CLAMP);
         mShadowPaint.setShader(shader);
     }
-
-    public int getShadowColor() {
-        return mShadowColor;
-    }
 }

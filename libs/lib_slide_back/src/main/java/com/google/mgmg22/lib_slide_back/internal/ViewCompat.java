@@ -2,12 +2,9 @@ package com.google.mgmg22.lib_slide_back.internal;
 
 import android.graphics.Rect;
 import android.os.Build;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewParent;
 import android.widget.AbsListView;
-
-import static android.os.Build.VERSION.SDK_INT;
 
 /**
  * @author billy.qi
@@ -25,11 +22,6 @@ public class ViewCompat {
      * touching a screen. This is usually from a fling which is settling.
      */
     public static final int TYPE_NON_TOUCH = 1;
-
-    /**
-     * Indicates no axis of view scrolling.
-     */
-    public static final int SCROLL_AXIS_NONE = 0;
 
     /**
      * Indicates scrolling along the horizontal axis.
@@ -180,34 +172,6 @@ public class ViewCompat {
         view.setTranslationY(y + 1);
         view.setTranslationY(y);
     }
-
-
-    /**
-     * <p>Convert script specific gravity to absolute horizontal value.</p>
-     *
-     * if horizontal direction is LTR, then START will set LEFT and END will set RIGHT.
-     * if horizontal direction is RTL, then START will set RIGHT and END will set LEFT.
-     *
-     *
-     * @param gravity The gravity to convert to absolute (horizontal) values.
-     * @param layoutDirection The layout direction.
-     * @return gravity converted to absolute (horizontal) values.
-     */
-    public static int getAbsoluteGravity(int gravity, int layoutDirection) {
-        if (SDK_INT >= 17) {
-            return Gravity.getAbsoluteGravity(gravity, layoutDirection);
-        } else {
-            // Just strip off the relative bit to get LEFT/RIGHT.
-            return gravity & ~Gravity.RELATIVE_LAYOUT_DIRECTION;
-        }
-    }
-    public static int getLayoutDirection(View view) {
-        if (Build.VERSION.SDK_INT >= 17) {
-            return view.getLayoutDirection();
-        }
-        return View.LAYOUT_DIRECTION_LTR;
-    }
-
 
     /**
      * Check if the items in the list can be scrolled in a certain direction.

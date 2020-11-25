@@ -310,12 +310,6 @@ public class SmartSwipeWrapper extends ViewGroup {
         return mConsumers;
     }
 
-    public SmartSwipeWrapper enableDirection(int direction, boolean enable) {
-        for (SwipeConsumer consumer : mConsumers) {
-            consumer.enableDirection(direction, enable);
-        }
-        return this;
-    }
 
     public boolean isInflateFromXml() {
         return mInflateFromXml;
@@ -700,22 +694,6 @@ public class SmartSwipeWrapper extends ViewGroup {
 
         public LayoutParams(int width, int height) {
             super(width, height);
-        }
-
-        /**
-         * Creates a new set of layout parameters with the specified width, height
-         * and weight.
-         *
-         * @param width   the width, either {@link #MATCH_PARENT},
-         *                {@link #WRAP_CONTENT} or a fixed size in pixels
-         * @param height  the height, either {@link #MATCH_PARENT},
-         *                {@link #WRAP_CONTENT} or a fixed size in pixels
-         * @param gravity the gravity
-         * @see android.view.Gravity
-         */
-        public LayoutParams(int width, int height, int gravity) {
-            super(width, height);
-            this.gravity = gravity;
         }
 
         public LayoutParams(ViewGroup.LayoutParams source) {

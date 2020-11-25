@@ -2,8 +2,6 @@ package com.google.mgmg22.lib_slide_back.consumer;
 
 import android.view.View;
 
-import com.google.mgmg22.lib_slide_back.SwipeConsumer;
-
 
 /**
  * Sliding with no drawer view, the view below will gradually show up as the contentView moves
@@ -50,11 +48,5 @@ public class TranslucentSlidingConsumer extends SlidingConsumer {
     @Override
     protected void changeDrawerViewVisibility(int visibility) {
         // no drawer view to show
-    }
-
-    @Override
-    public SwipeConsumer setOverSwipeFactor(float overSwipeFactor) {
-        // no over scale
-        return this;
     }
 }
