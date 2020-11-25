@@ -1,4 +1,4 @@
-package com.google.mgmg22.libs_common.component;
+package com.google.mgmg22.libs_common.helper;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,7 +9,7 @@ import android.text.style.ImageSpan;
 
 /**
  * @Description:竖直居中插入图片
- * @Author: 沈晓顺
+ * @Author: mgmg22
  * @CreateDate: 2020-01-13 17:40
  */
 public class VerticalImageSpan extends ImageSpan {

@@ -3,21 +3,19 @@ package com.google.mgmg22.libs_common.helper;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-
-import com.google.mgmg22.libs_common.R;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
  * @Description:
- * @Author: 沈晓顺
+ * @Author: mgmg22
  * @CreateDate: 2019-12-05 13:40
  */
 public class StatusBarUtils {
@@ -29,6 +27,27 @@ public class StatusBarUtils {
             } else {
                 activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             }
+        }
+    }
+
+    /**
+     * 用于将页面设置为全屏，在setContentView()后调用
+     *
+     * @param window
+     */
+    public static void setFullWindow(Window window) {
+        if (window == null) {
+            return;
+        }
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(Color.TRANSPARENT);
+        window.setFormat(PixelFormat.TRANSLUCENT);
+        try {
+            window.setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -61,10 +80,6 @@ public class StatusBarUtils {
         return statusBarHeight;
     }
 
-    public static boolean setDarkMode(Activity activity, View positionView) {
-        return setDarkMode(activity, true, positionView);
-    }
-
     public static boolean setDarkMode(Activity activity, boolean darkMode) {
         // 2. 状态栏占位View的高度调整
         String brand = Build.BRAND;
@@ -79,15 +94,6 @@ public class StatusBarUtils {
             success = setXiaomiDarkMode(activity, darkMode);
         } else if (brand.contains("Meizu")) {
             success = setMeizuDarkMode(activity, darkMode);
-        }
-        return success;
-    }
-
-    public static boolean setDarkMode(Activity activity, boolean darkMode, View positionView) {
-        boolean success = setDarkMode(activity, darkMode);
-        if (!success && positionView != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            positionView.setVisibility(View.VISIBLE);
-            positionView.setBackgroundResource(R.drawable.status_bar_back);
         }
         return success;
     }

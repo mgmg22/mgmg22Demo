@@ -17,9 +17,9 @@ fun <T> Observable<BaseResult<T>>.dispatchDefault(): Observable<T> =
                     if (tBaseModel.success) {
                         Observable.just(tBaseModel.model!!)
                     } else {
-                        if (!getToken().isNullOrEmpty() && (tBaseModel.code.toInt() == 100210 || tBaseModel.code.toInt() == 100205 || tBaseModel.code.toInt() == 3054 || tBaseModel.code.toInt() == 3024)) {
+//                        if (!getToken().isNullOrEmpty() && (tBaseModel.code.toInt() == 100210 || tBaseModel.code.toInt() == 100205 || tBaseModel.code.toInt() == 3054 || tBaseModel.code.toInt() == 3024)) {
 //                            EventBus.getDefault().post(MessageEvent("TO_LOGIN"))
-                        }
+//                        }
                         Observable.error(ApiException(tBaseModel.code.toInt(), tBaseModel.message, tBaseModel.errorModel))
                     }
                 }
@@ -32,9 +32,9 @@ fun <T> Observable<BaseResult<T>>.dispatchWithTotal(): Observable<BasePageList<T
                     if (tBaseModel.success) {
                         Observable.just(BasePageList(tBaseModel.model!!, tBaseModel.totalRecord))
                     } else {
-                        if (!getToken().isNullOrEmpty() && (tBaseModel.code.toInt() == 100210 || tBaseModel.code.toInt() == 100205 || tBaseModel.code.toInt() == 3054)) {
+//                        if (!getToken().isNullOrEmpty() && (tBaseModel.code.toInt() == 100210 || tBaseModel.code.toInt() == 100205 || tBaseModel.code.toInt() == 3054)) {
 //                            EventBus.getDefault().post(MessageEvent("TO_LOGIN"))
-                        }
+//                        }
                         Observable.error(ApiException(tBaseModel.code.toInt(), tBaseModel.message, tBaseModel.errorModel))
                     }
                 }
@@ -47,9 +47,9 @@ fun <T> Observable<BaseResult<T>>.dispatchAny(): Observable<Int> =
                     if (tBaseModel.success) {
                         Observable.just(tBaseModel.totalRecord)
                     } else {
-                        if (!getToken().isNullOrEmpty() && (tBaseModel.code.toInt() == 100210 || tBaseModel.code.toInt() == 100205 || tBaseModel.code.toInt() == 3054)) {
+//                        if (!getToken().isNullOrEmpty() && (tBaseModel.code.toInt() == 100210 || tBaseModel.code.toInt() == 100205 || tBaseModel.code.toInt() == 3054)) {
 //                            EventBus.getDefault().post(MessageEvent("TO_LOGIN"))
-                        }
+//                        }
                         Observable.error(ApiException(tBaseModel.code.toInt(), tBaseModel.message, tBaseModel.errorModel))
                     }
                 }

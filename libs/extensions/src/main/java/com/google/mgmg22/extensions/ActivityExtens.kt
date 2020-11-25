@@ -1,4 +1,4 @@
-package com.google.mgmg22.libs_common.ext
+package com.google.mgmg22.extensions
 
 import android.app.Activity
 import android.content.Context

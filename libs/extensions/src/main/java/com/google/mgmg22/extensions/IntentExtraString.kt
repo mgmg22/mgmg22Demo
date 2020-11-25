@@ -1,4 +1,4 @@
-package com.google.mgmg22.libs_common.ext
+package com.google.mgmg22.extensions
 
 import android.content.Intent
 import kotlin.reflect.KProperty

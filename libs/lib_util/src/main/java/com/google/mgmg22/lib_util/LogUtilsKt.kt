@@ -1,4 +1,4 @@
-package com.google.mgmg22.libs_common.component
+package com.google.mgmg22.lib_util
 
 import android.util.Log
 import java.util.HashMap
@@ -38,15 +38,36 @@ class LogUtilsKt private constructor() {
         private val sCachedTag = HashMap<String, String>()
 
         fun i(message: String) {
-            Log.i(buildTag(APP_TAG), buildMessage(message))
+            Log.i(
+                buildTag(
+                    APP_TAG
+                ),
+                buildMessage(
+                    message
+                )
+            )
         }
 
         fun d(message: String) {
-            Log.d(buildTag(APP_TAG), buildMessage(message))
+            Log.d(
+                buildTag(
+                    APP_TAG
+                ),
+                buildMessage(
+                    message
+                )
+            )
         }
 
         fun e(message: String) {
-            Log.e(buildTag(APP_TAG), buildMessage(message))
+            Log.e(
+                buildTag(
+                    APP_TAG
+                ),
+                buildMessage(
+                    message
+                )
+            )
         }
 
         private fun buildTag(tag: String): String? {
@@ -59,7 +80,7 @@ class LogUtilsKt private constructor() {
                     )
                 } else {
                     sCachedTag[key] = String.format(Locale.US, "|%s_%s|",
-                            APP_TAG,
+                        APP_TAG,
                             tag
                     )
                 }

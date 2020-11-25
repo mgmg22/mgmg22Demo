@@ -1,2 +1,4 @@
 include ':app'
 include ':libs:libs_common'
+include ':libs:extensions'
+include ':libs:lib_util'

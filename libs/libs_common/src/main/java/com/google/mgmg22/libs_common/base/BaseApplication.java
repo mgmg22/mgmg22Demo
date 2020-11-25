@@ -5,7 +5,7 @@ import android.content.Context;
 
 /**
  * @Description:
- * @Author: 沈晓顺
+ * @Author: mgmg22
  * @CreateDate: 2019-12-04 14:24
  */
 public class BaseApplication extends Application {

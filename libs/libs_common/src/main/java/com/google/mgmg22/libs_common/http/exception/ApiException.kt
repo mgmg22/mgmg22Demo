@@ -17,23 +17,10 @@ class ApiException(message: String?, cause: Throwable?) : Exception(message, cau
         this.errorCause = cause
     }
 
-    constructor(code: Int, msg: String) : this(code, msg, Throwable()) {
-        this.code = code
-        this.msg = msg
-    }
-
     constructor(code: Int, msg: String, error: JsonElement?) : this(code, msg, Throwable()) {
         this.code = code
         this.msg = msg
         this.errorModel = error
-    }
-
-    fun msg(msg: String) {
-        this.msg = msg
-    }
-
-    fun code(code: Int) {
-        this.code = code
     }
 
 }

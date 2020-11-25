@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @Description:自动换行布局管理
- * @Author: 沈晓顺
+ * @Author: mgmg22
  * @CreateDate: 2020-02-18 16:26
  */
 public class FlowLayoutManager extends RecyclerView.LayoutManager {

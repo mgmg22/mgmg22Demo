@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.mgmg22.libs_common.base.BaseApplication
-import com.google.mgmg22.libs_common.component.LogUtilsKt
+import com.google.mgmg22.lib_util.LogUtilsKt
 import java.text.DecimalFormat
 
 /**

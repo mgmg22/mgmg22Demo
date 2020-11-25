@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_base.*
 
 /**
  * @Description:
- * @Author:         沈晓顺
+ * @Author:         mgmg22
  * @CreateDate:     2019-12-05 14:00
  */
 abstract class BaseCommonActivity : AppCompatActivity() {
@@ -41,7 +41,6 @@ abstract class BaseCommonActivity : AppCompatActivity() {
     protected lateinit var shareIv: ImageView
 
     //TODO 待优化
-    protected lateinit var postionView: View
     protected lateinit var mToolbar: Toolbar
     protected lateinit var baseLine: View
 
@@ -72,7 +71,6 @@ abstract class BaseCommonActivity : AppCompatActivity() {
         toolbar.title = ""
         mToolbar = toolbar
         baseLine = base_line
-        postionView = position_view
         shareIv = share_iv
         rightText = toolbar_right_text
         toolbar_title.text = title
@@ -82,9 +80,8 @@ abstract class BaseCommonActivity : AppCompatActivity() {
             actionBar.setDisplayShowTitleEnabled(false)
         }
         if (isNeedAdjustStatusBar) {
-            position_view.isGone = false
-            StatusBarUtils.adjustStatusBar(this, position_view)
-            StatusBarUtils.setDarkMode(this, true, position_view)
+            StatusBarUtils.adjustStatusBar(this)
+            StatusBarUtils.setDarkMode(this, true)
         }
         setMobileContentView(LayoutInflater.from(this).inflate(layoutResID, null))
         initView()
@@ -110,13 +107,13 @@ abstract class BaseCommonActivity : AppCompatActivity() {
 
     override fun setContentView(view: View) {
         super.setContentView(R.layout.activity_base)
-        StatusBarUtils.adjustStatusBar(this, position_view)
+        StatusBarUtils.adjustStatusBar(this)
         setMobileContentView(view)
     }
 
     override fun setContentView(view: View, params: ViewGroup.LayoutParams?) {
         super.setContentView(R.layout.activity_base)
-        StatusBarUtils.adjustStatusBar(this, position_view)
+        StatusBarUtils.adjustStatusBar(this)
         setMobileContentView(view)
     }
 
