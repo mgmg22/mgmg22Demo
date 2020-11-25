@@ -1,4 +1,4 @@
-package com.google.mgmg22demo.utils;
+package com.google.mgmg22.lib_util;
 
 import android.app.ActivityManager;
 import android.app.Application;

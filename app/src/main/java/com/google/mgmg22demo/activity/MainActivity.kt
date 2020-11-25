@@ -5,7 +5,7 @@ import android.os.SystemClock
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.mgmg22demo.R
-import com.google.mgmg22demo.utils.ProcessUtil
+import com.google.mgmg22.lib_util.ProcessUtil
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
