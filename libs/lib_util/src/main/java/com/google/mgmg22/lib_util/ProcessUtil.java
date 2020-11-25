@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * android获取进程名函数
  *
- * @Author shenxiaoshun
+ * @Author mgmg22
  * @Date 2020/11/24
  */
 public class ProcessUtil {

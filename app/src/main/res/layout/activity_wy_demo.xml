@@ -4,14 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="40dp"
+    android:background="#000"
     tools:context=".activity.MainActivity">
 
-    <Button
-        android:id="@+id/btn_start_wy"
+
+    <com.google.mgmg22demo.widget.DimpleView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="网易云音乐宇宙尘埃特效"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_height="wrap_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>

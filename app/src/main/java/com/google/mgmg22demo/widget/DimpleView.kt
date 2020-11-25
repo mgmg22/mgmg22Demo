@@ -10,7 +10,7 @@ import java.lang.Math.*
 import java.util.*
 
 /**
- * @Author shenxiaoshun
+ * @Author mgmg22
  * @Date 2020/10/9
  */
 class DimpleView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {

@@ -1,7 +1,7 @@
 package com.google.mgmg22demo.widget
 
 /**
- * @Author shenxiaoshun
+ * @Author mgmg22
  * @Date 2020/10/9
  */
 class Particle(

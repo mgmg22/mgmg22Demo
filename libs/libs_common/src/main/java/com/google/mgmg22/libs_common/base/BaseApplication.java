@@ -8,7 +8,8 @@ import android.content.Context;
  * @Author: mgmg22
  * @CreateDate: 2019-12-04 14:24
  */
-public class BaseApplication extends Application {
+public abstract class BaseApplication extends Application {
+    //TODO 去掉，目前只是为了api不报错
     private static Application sContext;
 
     public BaseApplication() {
@@ -18,5 +19,4 @@ public class BaseApplication extends Application {
     public static Context getContext() {
         return sContext;
     }
-
 }
