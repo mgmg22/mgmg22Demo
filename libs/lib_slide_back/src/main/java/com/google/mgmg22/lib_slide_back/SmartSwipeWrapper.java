@@ -19,11 +19,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_BOTTOM;
 import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_LEFT;
 import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_NONE;
-import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_RIGHT;
-import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_TOP;
 import static com.google.mgmg22.lib_slide_back.SwipeConsumer.PROGRESS_OPEN;
 
 
@@ -405,11 +402,9 @@ public class SmartSwipeWrapper extends ViewGroup {
             boolean handle;
             if (direction != DIRECTION_NONE) {
                 //only handle the same axes as current swipe direction
-                handle = horizontal && (direction == DIRECTION_LEFT || direction == DIRECTION_RIGHT);
-                handle = handle || vertical && (direction == DIRECTION_TOP || direction == DIRECTION_BOTTOM);
+                handle = horizontal && (direction == DIRECTION_LEFT);
             } else {
-                handle = horizontal && (consumer.isLeftEnable() || consumer.isRightEnable());
-                handle = handle || vertical && (consumer.isTopEnable() || consumer.isBottomEnable());
+                handle = horizontal && (consumer.isLeftEnable());
             }
             if (handle) {
                 startNestedScroll(axes, type);
@@ -518,24 +513,9 @@ public class SmartSwipeWrapper extends ViewGroup {
                     // ↓: y < 0, ↑: y > 0
                     // →: x < 0, ←: x > 0
                     switch (consumer.getDirection()) {
-                        case DIRECTION_TOP:
-                            flyToOpen = dyUnconsumed < 0;
-                            flyToClose = dyUnconsumed > 0;
-                            if (dyUnconsumed == 0) return;
-                            break;
-                        case DIRECTION_BOTTOM:
-                            flyToOpen = dyUnconsumed > 0;
-                            flyToClose = dyUnconsumed < 0;
-                            if (dyUnconsumed == 0) return;
-                            break;
                         case DIRECTION_LEFT:
                             flyToOpen = dxUnconsumed < 0;
                             flyToClose = dxUnconsumed > 0;
-                            if (dxUnconsumed == 0) return;
-                            break;
-                        case DIRECTION_RIGHT:
-                            flyToOpen = dxUnconsumed > 0;
-                            flyToClose = dxUnconsumed < 0;
                             if (dxUnconsumed == 0) return;
                             break;
                         default:

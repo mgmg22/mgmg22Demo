@@ -54,35 +54,6 @@ public class SlidingConsumer extends DrawerConsumer {
                 t = 0;
                 b = h;
                 break;
-            case DIRECTION_RIGHT:
-                l = mWidth - initDistance;
-                r = l + w;
-                t = 0;
-                b = h;
-                if (mEdgeAffinity && r < mWidth) {
-                    r = mWidth;
-                    l = r - w;
-                }
-                break;
-            case DIRECTION_TOP:
-                l = 0;
-                r = mWidth;
-                t = -h + initDistance;
-                if (mEdgeAffinity && t > 0) {
-                    t = 0;
-                }
-                b = t + h;
-                break;
-            case DIRECTION_BOTTOM:
-                l = 0;
-                r = mWidth;
-                t = mHeight - initDistance;
-                b = t + h;
-                if (mEdgeAffinity && b < mHeight) {
-                    b = mHeight;
-                    t = b - h;
-                }
-                break;
             default:
                 break;
         }
@@ -140,58 +111,6 @@ public class SlidingConsumer extends DrawerConsumer {
                     } else if (left > 0) {
                         left = 0;
                     }
-                    break;
-                case DIRECTION_RIGHT:
-                    left = contentView.getRight();
-                    right = r + rdx;
-                    if (!mDrawerExpandable) {
-                        if (!mEdgeAffinity && left + mDrawerW < mWidth) {
-                            right = left + mDrawerW;
-                        } else if (mEdgeAffinity && right < mWidth) {
-                            right = mWidth;
-                        }
-                        if (right - left > mDrawerW) {
-                            left = right - mDrawerW;
-                        }
-                    } else if (right < mWidth) {
-                        right = mWidth;
-                    }
-                    scrollX = (int) ((mOpenDistance + mCurDisplayDistanceX) * (1 - mRelativeMoveFactor));
-                    scrollX = Math.max(scrollX, 0);
-                    break;
-                case DIRECTION_TOP:
-                    top = t + rdy;
-                    bottom = contentView.getTop();
-                    if (!mDrawerExpandable) {
-                        if (!mEdgeAffinity && bottom > mDrawerH) {
-                            top = bottom - mDrawerH;
-                        } else if (mEdgeAffinity && top > 0) {
-                            top = 0;
-                        }
-                        if (bottom - top > mDrawerH) {
-                            bottom = top + mDrawerH;
-                        }
-                    } else if (top > 0) {
-                        top = 0;
-                    }
-                    break;
-                case DIRECTION_BOTTOM:
-                    top = contentView.getBottom();
-                    bottom = b + rdy;
-                    if (!mDrawerExpandable) {
-                        if (!mEdgeAffinity && top + mDrawerH < mHeight) {
-                            bottom = top + mDrawerH;
-                        } else if (mEdgeAffinity && bottom < mHeight) {
-                            bottom = mHeight;
-                        }
-                        if (bottom - top > mDrawerH) {
-                            top = bottom - mDrawerH;
-                        }
-                    } else if (bottom < mHeight) {
-                        bottom = mHeight;
-                    }
-                    scrollY = (int) ((mOpenDistance + mCurDisplayDistanceY) * (1 - mRelativeMoveFactor));
-                    scrollY = Math.max(scrollY, 0);
                     break;
                 default:
                     break;

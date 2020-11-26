@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.animation.Interpolator;
-import android.widget.AbsListView;
 import android.widget.AbsSeekBar;
-
 
 import com.google.mgmg22.lib_slide_back.internal.ScrimView;
 import com.google.mgmg22.lib_slide_back.internal.SwipeHelper;
@@ -25,9 +23,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * all subclasses should manage the following 4 direction swipes:
  * <pre>
  *  1. {@link #DIRECTION_LEFT}
- *  2. {@link #DIRECTION_RIGHT}
- *  3. {@link #DIRECTION_TOP}
- *  4. {@link #DIRECTION_BOTTOM}
  * </pre>
  * <pre>
  * To consume Motion Event via:
@@ -40,12 +35,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public abstract class SwipeConsumer {
     public static final int DIRECTION_NONE = 0;
     public static final int DIRECTION_LEFT = 1;
-    public static final int DIRECTION_RIGHT = 1 << 1;
-    public static final int DIRECTION_TOP = 1 << 2;
-    public static final int DIRECTION_BOTTOM = 1 << 3;
-    public static final int DIRECTION_HORIZONTAL = DIRECTION_LEFT | DIRECTION_RIGHT;
-    public static final int DIRECTION_VERTICAL = DIRECTION_TOP | DIRECTION_BOTTOM;
-    public static final int DIRECTION_ALL = DIRECTION_HORIZONTAL | DIRECTION_VERTICAL;
+    public static final int DIRECTION_HORIZONTAL = DIRECTION_LEFT ;
+    public static final int DIRECTION_ALL = DIRECTION_HORIZONTAL;
     public static final int RELEASE_MODE_NONE = 0;
     public static final int RELEASE_MODE_AUTO_CLOSE = 1;
     public static final int RELEASE_MODE_AUTO_OPEN = 2;
@@ -172,7 +163,7 @@ public abstract class SwipeConsumer {
                 return DIRECTION_NONE;
             }
             //already swiped, checkout whether the swipe direction as same as last one
-            if ((mDirection & DIRECTION_HORIZONTAL) > 0 && absX > absY || (mDirection & DIRECTION_VERTICAL) > 0 && absX < absY) {
+            if ((mDirection & DIRECTION_HORIZONTAL) > 0 && absX > absY) {
                 if (!isDirectionLocked(mDirection) && !isNestedAndDisabled(pointerId, mDirection)) {
                     //it seams like it wants to continue current swiping, now, check whether any child can scroll
                     boolean canChildScroll = canChildScroll(mWrapper, mDirection, pointerId, downX, downY, dx, dy);
@@ -188,32 +179,12 @@ public abstract class SwipeConsumer {
                 if (isLeftEnable() && downX <= mEdgeSize) {
                     dir = DIRECTION_LEFT;
                     handle = true;
-                } else if (isRightEnable() && downX >= mWidth - mEdgeSize) {
-                    dir = DIRECTION_RIGHT;
-                    handle = true;
-                } else if (isTopEnable() && downY <= mEdgeSize) {
-                    dir = DIRECTION_TOP;
-                    handle = true;
-                } else if (isBottomEnable() && downY >= mHeight - mEdgeSize) {
-                    dir = DIRECTION_BOTTOM;
-                    handle = true;
                 }
             }
         } else {
             if (absX > absY) {
                 if (dx > 0 && isLeftEnable()) {
                     dir = DIRECTION_LEFT;
-                    handle = true;
-                } else if (dx < 0 && isRightEnable()) {
-                    dir = DIRECTION_RIGHT;
-                    handle = true;
-                }
-            } else {
-                if (dy > 0 && isTopEnable()) {
-                    dir = DIRECTION_TOP;
-                    handle = true;
-                } else if (dy < 0 && isBottomEnable()) {
-                    dir = DIRECTION_BOTTOM;
                     handle = true;
                 }
             }
@@ -223,15 +194,6 @@ public abstract class SwipeConsumer {
                     switch (dir) {
                         case DIRECTION_LEFT:
                             handle = downX <= mEdgeSize;
-                            break;
-                        case DIRECTION_RIGHT:
-                            handle = downX >= mWidth - mEdgeSize;
-                            break;
-                        case DIRECTION_TOP:
-                            handle = downY <= mEdgeSize;
-                            break;
-                        case DIRECTION_BOTTOM:
-                            handle = downY >= mHeight - mEdgeSize;
                             break;
                         default:
                     }
@@ -285,7 +247,6 @@ public abstract class SwipeConsumer {
         } else if (topChild != null) {
             switch (direction) {
                 case DIRECTION_LEFT:
-                case DIRECTION_RIGHT:
                     if (topChild instanceof AbsSeekBar) {
                         AbsSeekBar seekBar = (AbsSeekBar) topChild;
                         int progress = seekBar.getProgress();
@@ -297,15 +258,6 @@ public abstract class SwipeConsumer {
                         canScroll = dx > 0 && progress < max || dx < 0 && progress > min;
                     } else {
                         canScroll = topChild.canScrollHorizontally(dx > 0 ? -1 : 1);
-                    }
-                    break;
-                case DIRECTION_TOP:
-                case DIRECTION_BOTTOM:
-                    int dir = dy > 0 ? -1 : 1;
-                    if (topChild instanceof AbsListView) {
-                        canScroll = ViewCompat.canListViewScrollVertical((AbsListView) topChild, dir);
-                    } else {
-                        canScroll = topChild.canScrollVertically(dir);
                     }
                     break;
                 default:
@@ -372,15 +324,6 @@ public abstract class SwipeConsumer {
         switch (mDirection) {
             case DIRECTION_LEFT:
                 open = xVelocity > 0 || xVelocity == 0 && mProgress > 0.5F;
-                break;
-            case DIRECTION_RIGHT:
-                open = xVelocity < 0 || xVelocity == 0 && mProgress > 0.5F;
-                break;
-            case DIRECTION_TOP:
-                open = yVelocity > 0 || yVelocity == 0 && mProgress > 0.5F;
-                break;
-            case DIRECTION_BOTTOM:
-                open = yVelocity < 0 || yVelocity == 0 && mProgress > 0.5F;
                 break;
             default:
                 break;
@@ -459,17 +402,14 @@ public abstract class SwipeConsumer {
 
     public int getHorizontalRange(float dx, float dy) {
         if (mCurSwipeDistanceX != 0
-                || dx > 0 && isLeftEnable() && !isLeftLocked()
-                || dx < 0 && isRightEnable() && !isRightLocked()) {
+                || dx > 0 && isLeftEnable() && !isLeftLocked()) {
             return getSwipeOpenDistance();
         }
         return 0;
     }
 
     public int getVerticalRange(float dx, float dy) {
-        if (mCurSwipeDistanceY != 0
-                || dy > 0 && isTopEnable() && !isTopLocked()
-                || dy < 0 && isBottomEnable() && !isBottomLocked()) {
+        if (mCurSwipeDistanceY != 0) {
             return getSwipeOpenDistance();
         }
         return 0;
@@ -483,9 +423,6 @@ public abstract class SwipeConsumer {
         if ((mDirection & DIRECTION_LEFT) > 0 && isLeftEnable()) {
             return SmartSwipe.ensureBetween(distanceX, 0, mSwipeMaxDistance);
         }
-        if ((mDirection & DIRECTION_RIGHT) > 0 && isRightEnable()) {
-            return SmartSwipe.ensureBetween(distanceX, -mSwipeMaxDistance, 0);
-        }
         return 0;
     }
 
@@ -493,12 +430,6 @@ public abstract class SwipeConsumer {
         if (mCachedSwipeDistanceY != 0) {
             distanceY += mCachedSwipeDistanceY;
             mCachedSwipeDistanceY = 0;
-        }
-        if ((mDirection & DIRECTION_TOP) > 0 && isTopEnable()) {
-            return SmartSwipe.ensureBetween(distanceY, 0, mSwipeMaxDistance);
-        }
-        if ((mDirection & DIRECTION_BOTTOM) > 0 && isBottomEnable()) {
-            return SmartSwipe.ensureBetween(distanceY, -mSwipeMaxDistance, 0);
         }
         return 0;
     }
@@ -528,12 +459,7 @@ public abstract class SwipeConsumer {
             } else {
                 switch (mDirection) {
                     case DIRECTION_LEFT:
-                    case DIRECTION_RIGHT:
                         mProgress = Math.abs((float) mCurSwipeDistanceX / mSwipeOpenDistance);
-                        break;
-                    case DIRECTION_TOP:
-                    case DIRECTION_BOTTOM:
-                        mProgress = Math.abs((float) mCurSwipeDistanceY / mSwipeOpenDistance);
                         break;
                     default:
                 }
@@ -543,11 +469,6 @@ public abstract class SwipeConsumer {
                 dx = realDistanceX - mCurDisplayDistanceX;
                 dy = 0;
                 mCurDisplayDistanceX = realDistanceX;
-            } else if ((mDirection & DIRECTION_VERTICAL) > 0) {
-                int realDistanceY = clampedDistanceY;
-                dx = 0;
-                dy = realDistanceY - mCurDisplayDistanceY;
-                mCurDisplayDistanceY = realDistanceY;
             }
             onDisplayDistanceChanged(mCurDisplayDistanceX, mCurDisplayDistanceY, dx, dy);
         }
@@ -831,15 +752,6 @@ public abstract class SwipeConsumer {
             case DIRECTION_LEFT:
                 finalX = distance;
                 break;
-            case DIRECTION_RIGHT:
-                finalX = -distance;
-                break;
-            case DIRECTION_TOP:
-                finalY = distance;
-                break;
-            case DIRECTION_BOTTOM:
-                finalY = -distance;
-                break;
             default:
                 break;
         }
@@ -885,18 +797,6 @@ public abstract class SwipeConsumer {
         return (mEnableDirection & DIRECTION_LEFT) != 0;
     }
 
-    public boolean isRightEnable() {
-        return (mEnableDirection & DIRECTION_RIGHT) != 0;
-    }
-
-    public boolean isTopEnable() {
-        return (mEnableDirection & DIRECTION_TOP) != 0;
-    }
-
-    public boolean isBottomEnable() {
-        return (mEnableDirection & DIRECTION_BOTTOM) != 0;
-    }
-
     public SwipeConsumer lockDirection(int direction) {
         mLockDirection |= direction;
         return this;
@@ -914,18 +814,6 @@ public abstract class SwipeConsumer {
 
     public boolean isLeftLocked() {
         return (mLockDirection & DIRECTION_LEFT) != 0;
-    }
-
-    public boolean isRightLocked() {
-        return (mLockDirection & DIRECTION_RIGHT) != 0;
-    }
-
-    public boolean isTopLocked() {
-        return (mLockDirection & DIRECTION_TOP) != 0;
-    }
-
-    public boolean isBottomLocked() {
-        return (mLockDirection & DIRECTION_BOTTOM) != 0;
     }
 
 

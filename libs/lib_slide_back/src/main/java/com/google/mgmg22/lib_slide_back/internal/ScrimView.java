@@ -10,10 +10,7 @@ import android.view.View;
 import com.google.mgmg22.lib_slide_back.SmartSwipe;
 
 import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_ALL;
-import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_BOTTOM;
 import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_LEFT;
-import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_RIGHT;
-import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_TOP;
 
 
 /**
@@ -57,11 +54,6 @@ public class ScrimView extends View {
         }
         if (mSize > 0 && mShadowColor != 0 && (mDirection & DIRECTION_ALL) > 0) {
             canvas.save();
-            switch (mShadowDirection) {
-                default: break;
-                case DIRECTION_RIGHT:   canvas.translate(mBounds.right - mSize, 0); break;
-                case DIRECTION_BOTTOM:  canvas.translate(0, mBounds.bottom - mSize); break;
-            }
             canvas.clipRect(mShadowRect);
             canvas.drawPaint(mShadowPaint);
             canvas.restore();
@@ -90,9 +82,12 @@ public class ScrimView extends View {
         }
         int l = 0, t = 0, r, b;
         switch (mShadowDirection) {
-            default: return;
-            case DIRECTION_LEFT:    case DIRECTION_RIGHT:   r = mSize; t = b = parentHeight; break;
-            case DIRECTION_TOP:     case DIRECTION_BOTTOM:  r = parentWidth; b = mSize; break;
+            default:
+                return;
+            case DIRECTION_LEFT:
+                r = mSize;
+                t = b = parentHeight;
+                break;
         }
         mShadowRect.right = r;
         mShadowRect.bottom = b;
@@ -100,7 +95,7 @@ public class ScrimView extends View {
         int steps = 30;
         float[] positions = new float[steps + 1];
         int[] colors = new int[steps + 1];
-        boolean revert = mShadowDirection == DIRECTION_LEFT || mShadowDirection == DIRECTION_TOP;
+        boolean revert = mShadowDirection == DIRECTION_LEFT;
         for (int i = 0; i <= steps; i++) {
             positions[i] = i * 1F / steps;
         }
@@ -110,7 +105,7 @@ public class ScrimView extends View {
             colors[i] = ((int) (alpha * position * position) << 24) | (mShadowColor & 0xFFFFFF);
         }
 
-        boolean horizontal = direction == DIRECTION_LEFT || direction == DIRECTION_RIGHT;
+        boolean horizontal = direction == DIRECTION_LEFT;
         if (horizontal) {
             t = b = b >> 1;
         } else {

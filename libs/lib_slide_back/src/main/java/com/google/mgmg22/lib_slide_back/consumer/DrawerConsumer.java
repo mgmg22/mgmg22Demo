@@ -66,21 +66,6 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
                 setLeftDrawerView(child);
                 mWrapper.consumeInflateFromXml();
             }
-            if (mDrawerViews[1] == null && (gravity & DIRECTION_RIGHT) == DIRECTION_RIGHT) {
-                // This child is a right drawer
-                setRightDrawerView(child);
-                mWrapper.consumeInflateFromXml();
-            }
-            if (mDrawerViews[2] == null && (gravity & DIRECTION_TOP) == DIRECTION_TOP) {
-                // This child is a top drawer
-                setTopDrawerView(child);
-                mWrapper.consumeInflateFromXml();
-            }
-            if (mDrawerViews[3] == null && (gravity & DIRECTION_BOTTOM) == DIRECTION_BOTTOM) {
-                // This child is a bottom drawer
-                setBottomDrawerView(child);
-                mWrapper.consumeInflateFromXml();
-            }
         }
     }
 
@@ -201,24 +186,6 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
                 t = 0;
                 b = h;
                 break;
-            case DIRECTION_RIGHT:
-                l = mWidth;
-                r = l + w;
-                t = 0;
-                b = h;
-                break;
-            case DIRECTION_TOP:
-                l = 0;
-                r = mWidth;
-                t = -h;
-                b = t + h;
-                break;
-            case DIRECTION_BOTTOM:
-                l = 0;
-                r = mWidth;
-                t = mHeight;
-                b = t + h;
-                break;
             default:
                 break;
         }
@@ -282,30 +249,12 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
                     case DIRECTION_LEFT:
                         r = mCurDisplayDistanceX;
                         break;
-                    case DIRECTION_RIGHT:
-                        l = r + mCurDisplayDistanceX;
-                        break;
-                    case DIRECTION_TOP:
-                        b = mCurDisplayDistanceY;
-                        break;
-                    case DIRECTION_BOTTOM:
-                        t = b + mCurDisplayDistanceY;
-                        break;
                     default:
                 }
             } else {
                 switch (mDirection) {
                     case DIRECTION_LEFT:
                         l = mCurDisplayDistanceX;
-                        break;
-                    case DIRECTION_RIGHT:
-                        r = r + mCurDisplayDistanceX;
-                        break;
-                    case DIRECTION_TOP:
-                        t = mCurDisplayDistanceY;
-                        break;
-                    case DIRECTION_BOTTOM:
-                        b = b + mCurDisplayDistanceY;
                         break;
                     default:
                 }
@@ -347,15 +296,6 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
             case DIRECTION_LEFT:
                 viewIndex = 0;
                 break;
-            case DIRECTION_RIGHT:
-                viewIndex = 1;
-                break;
-            case DIRECTION_TOP:
-                viewIndex = 2;
-                break;
-            case DIRECTION_BOTTOM:
-                viewIndex = 3;
-                break;
         }
         if (viewIndex < 0) {
             return null;
@@ -365,18 +305,6 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
 
     public DrawerConsumer setLeftDrawerView(View drawerView) {
         return setDrawerView(DIRECTION_LEFT, drawerView);
-    }
-
-    public DrawerConsumer setRightDrawerView(View drawerView) {
-        return setDrawerView(DIRECTION_RIGHT, drawerView);
-    }
-
-    public DrawerConsumer setTopDrawerView(View drawerView) {
-        return setDrawerView(DIRECTION_TOP, drawerView);
-    }
-
-    public DrawerConsumer setBottomDrawerView(View drawerView) {
-        return setDrawerView(DIRECTION_BOTTOM, drawerView);
     }
 
     /**
@@ -391,15 +319,6 @@ public class DrawerConsumer extends SwipeConsumer implements View.OnClickListene
         enableDirection(direction, drawerView != null);
         if ((direction & DIRECTION_LEFT) > 0) {
             setOrUpdateDrawerView(0, drawerView);
-        }
-        if ((direction & DIRECTION_RIGHT) > 0) {
-            setOrUpdateDrawerView(1, drawerView);
-        }
-        if ((direction & DIRECTION_TOP) > 0) {
-            setOrUpdateDrawerView(2, drawerView);
-        }
-        if ((direction & DIRECTION_BOTTOM) > 0) {
-            setOrUpdateDrawerView(3, drawerView);
         }
         return this;
     }

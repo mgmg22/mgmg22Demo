@@ -14,8 +14,9 @@ import com.google.mgmg22.lib_slide_back.internal.SwipeHelper;
 /**
  * swipe to finish activity. make current activity translucent to show the previous activity
  * thanks:
- *  1. https://github.com/ikew0ng/SwipeBackLayout
- *  2. https://github.com/Simon-Leeeeeeeee/SLWidget
+ * 1. https://github.com/ikew0ng/SwipeBackLayout
+ * 2. https://github.com/Simon-Leeeeeeeee/SLWidget
+ *
  * @author billy.qi
  */
 public class ActivitySlidingBackConsumer extends TranslucentSlidingConsumer {
@@ -102,10 +103,9 @@ public class ActivitySlidingBackConsumer extends TranslucentSlidingConsumer {
             if (previousActivity != null) {
                 mPreviousActivityContentView = previousActivity.getWindow().getDecorView();
                 switch (mDirection) {
-                    case DIRECTION_LEFT:    initTranslation = -(int) (mWidth * mRelativeMoveFactor); break;
-                    case DIRECTION_RIGHT:   initTranslation = (int) (mWidth * mRelativeMoveFactor); break;
-                    case DIRECTION_TOP:     initTranslation = -(int) (mHeight * mRelativeMoveFactor); break;
-                    case DIRECTION_BOTTOM:  initTranslation = (int) (mHeight * mRelativeMoveFactor); break;
+                    case DIRECTION_LEFT:
+                        initTranslation = -(int) (mWidth * mRelativeMoveFactor);
+                        break;
                     default:
                 }
                 movePreviousActivityContentView(initTranslation);
@@ -133,10 +133,9 @@ public class ActivitySlidingBackConsumer extends TranslucentSlidingConsumer {
         if (mPreviousActivityContentView != null) {
             int translation = 0;
             switch (mDirection) {
-                case DIRECTION_LEFT:    translation = initTranslation + (int) (mWidth * mProgress * mRelativeMoveFactor); break;
-                case DIRECTION_RIGHT:   translation = initTranslation - (int) (mWidth * mProgress * mRelativeMoveFactor); break;
-                case DIRECTION_TOP:     translation = initTranslation + (int) (mHeight * mProgress * mRelativeMoveFactor); break;
-                case DIRECTION_BOTTOM:  translation = initTranslation - (int) (mHeight * mProgress * mRelativeMoveFactor); break;
+                case DIRECTION_LEFT:
+                    translation = initTranslation + (int) (mWidth * mProgress * mRelativeMoveFactor);
+                    break;
                 default:
             }
             movePreviousActivityContentView(translation);
