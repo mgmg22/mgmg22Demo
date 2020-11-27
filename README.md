@@ -416,9 +416,7 @@ public static void setFullWindow(Window window) {
 
 ### 6其他注意事项
 
-
-
-##屏蔽侧滑的方式：
+#### 屏蔽侧滑的方式：
 
 ```java
 activitySlidingBack(this, new SmartSwipeBack.ActivitySwipeBackFilter() {
@@ -433,10 +431,7 @@ activitySlidingBack(this, new SmartSwipeBack.ActivitySwipeBackFilter() {
             }
 ```
 
-
-
-
-##滑动冲突
+#### 滑动冲突
 
 带有水平方向上的滑动距离监听的页面，如轮播图等
 与webview的交互
