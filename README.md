@@ -4,16 +4,13 @@
 工具类
 ktx 扩展和语法练习
 
-[网易云音乐宇宙尘埃特效][1]
+[网易云音乐宇宙尘埃特效](https://juejin.cn/post/6871049441546567688)
 
-[获取进程名函数优化][2]
-
-
-[1]: https://juejin.cn/post/6871049441546567688        "网易云音乐宇宙尘埃特效"
-[2]: https://juejin.cn/post/6877127949452050446        "获取进程名函数优化"
+[获取进程名函数优化](https://juejin.cn/post/6877127949452050446)
 
 
-## 全局侧滑返回方案
+
+## [全局侧滑返回方案原理](https://qibilly.com/SmartSwipe-tutorial/pages/SmartSwipeBack.html)
 
 
 ### 1.注册生命周期监听 包裹viewGroup
@@ -421,7 +418,7 @@ public static void setFullWindow(Window window) {
 
 
 
-屏蔽侧滑的方式一：
+##屏蔽侧滑的方式：
 
 ```java
 activitySlidingBack(this, new SmartSwipeBack.ActivitySwipeBackFilter() {
@@ -439,21 +436,18 @@ activitySlidingBack(this, new SmartSwipeBack.ActivitySwipeBackFilter() {
 
 
 
+##滑动冲突
 
-冲突
-
-带有水平方向上的滑动距离监听的页面
-
+带有水平方向上的滑动距离监听的页面，如轮播图等
+与webview的交互
 
 
-禁止使用
+
+禁止使用：
 
 ```
 requestWindowFeature(Window.FEATURE_NO_TITLE)
 ```
 
-**侧滑会引起上个页面的生命周期变化**
+**侧滑过程中会触发上个Activity的生命周期变化 onStart() onStop()**
 
-
-
-[参考文档](
