@@ -333,7 +333,7 @@ public void onSwipeAccepted(int activePointerId, boolean settling, float initial
 
 
 
-### 4触发侧滑返回
+### 4.触发侧滑返回
 
 
 
@@ -390,7 +390,7 @@ protected void smoothOpenOrClose(float xVelocity, float yVelocity) {
 
 
 
-### 5状态栏适配
+### 5.状态栏适配
 
 
 
@@ -414,7 +414,7 @@ public static void setFullWindow(Window window) {
 
 
 
-### 6其他注意事项
+### 6.其他注意事项
 
 #### 屏蔽侧滑的方式：
 
