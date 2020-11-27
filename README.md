@@ -390,21 +390,6 @@ protected void smoothOpenOrClose(float xVelocity, float yVelocity) {
 }
 ```
 
-```java
-//设置侧滑回调事件
-new SimpleSwipeListener() {
-    @Override
-    public void onSwipeOpened(SmartSwipeWrapper wrapper, SwipeConsumer consumer, int direction) {
-        if (activity != null) {
-            if (activity instanceof OnSwipeBackListener) {
-                ((OnSwipeBackListener) activity).beforeSwipeOpened();
-            }
-            activity.finish();
-            activity.overridePendingTransition(com.weipaitang.wpt.lib.widget.R.anim.anim_none, com.weipaitang.wpt.lib.widget.R.anim.anim_none);
-        }
-    }
-}
-```
 
 
 
