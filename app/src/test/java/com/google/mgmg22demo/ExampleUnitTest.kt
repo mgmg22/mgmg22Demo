@@ -1,6 +1,8 @@
 package com.google.mgmg22demo
 
+import com.google.gson.Gson
 import com.google.mgmg22.extensions.sameAs
+import com.google.mgmg22.libs_common.ext.fromJson
 import io.reactivex.Observable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -47,10 +49,18 @@ class ExampleUnitTest {
      */
     @Test
     fun testJsonFormat() {
-//        val json = "{\"merchantId\":728,\"userName\":\"testUserName01\",\"accountType\":0,\"createTime\":\"01-09 10:00:00\",\"merchantStatus\":1,\"identityStatus\":1,\"bindCardStatus\":3,\"storeId\":47,\"storeStatus\":3,\"submitStatus\":0}"
-//        var result: MerchantInfo = Gson().fromJson(json)
+        val json = "{\n" +
+                "                                 \"颜色\" : \"红色\", //属性\n" +
+                "                                 \"尺寸\" : \"xl\"  //属性\n" +
+                "                            }"
+        val result = Gson().fromJson<Map<String, String>>(json)
 //        println("LogTagggg:" + result.merchantId.toString() + "," + result.createTime)
-//        println(result.toString())
+        println(result.toString())
+        var str = ""
+        result.forEach {
+            str += it.value + ";"
+        }
+        println(str)
 //        val (accountType, bindCardStatus) = result
 //        println("LogTagggg:$accountType,$bindCardStatus")
     }
@@ -182,7 +192,11 @@ class ExampleUnitTest {
      */
     @Test
     fun testTo() {
-        val map = mapOf("ss" to "A", 2 to "B", 3 to "C")//to实际上一个返回Pair对象的函数，不是属于map结构内部的运算符，但是to在语法层面使用很像中缀运算符调用
+        val map = mapOf(
+            "ss" to "A",
+            2 to "B",
+            3 to "C"
+        )//to实际上一个返回Pair对象的函数，不是属于map结构内部的运算符，但是to在语法层面使用很像中缀运算符调用
         map.forEach { key, value ->
             println("key: $key   value:$value")
         }
