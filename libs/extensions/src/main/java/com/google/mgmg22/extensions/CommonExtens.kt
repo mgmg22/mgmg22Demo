@@ -13,9 +13,6 @@ import java.util.*
 //手机号格式
 fun String.isPhone() = this.startsWith("1") && this.trim().length == 11
 
-//布尔字符串"Y","N"
-fun String?.string2Boolean() = (this != null) && (this == "Y")
-
 /**
  * 比较内容是否一致
  */
@@ -28,5 +25,6 @@ fun ClosedRange<Int>.random() = Random().nextInt((endInclusive + 1) - start) + s
 
 /**
  * 手机号码带空格显示
+ * TODO 长度判断
  */
 fun String.formatPhone() = "${this.substring(0, 3)} ${"****"} ${this.substring(7, 11)}"
