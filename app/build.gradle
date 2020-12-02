@@ -3,29 +3,30 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    compileSdkVersion Versions.COMPILE_SDK
+    buildToolsVersion Versions.BUILD_TOOLS
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
         ignoreWarnings true
     }
     defaultConfig {
-        applicationId "com.google.mgmg22demo"
-        minSdkVersion 26
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        applicationId Config.APPLICATION_ID
+        minSdkVersion Versions.MIN_SDK
+        targetSdkVersion Versions.TARGET_SDK
+        versionCode Versions.APP_CODE
+        versionName Versions.APP_NAME
+        ndk { abiFilters "armeabi-v7a" }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     //签名
     signingConfigs {
         release {
-            storeFile file("./android.keystore")
-            storePassword "nalanala"
-            keyAlias "lizi"
-            keyPassword "nalanala"
+            storeFile file("android.keystore")
+            storePassword Config.KEY_STORE_PWD
+            keyAlias Config.KEY_ALIAS
+            keyPassword Config.KEY_PWD
         }
     }
     buildTypes {
@@ -46,11 +47,25 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation project(':libs:libs_common')
     implementation project(':libs:lib_slide_back')
+    implementation project(':libs:extensions')
+    implementation project(':libs:lib_util')
+    implementation project(':libs:lib_http')
+    implementation Deps.APPCOMPAT
+    implementation Deps.CONSTRAINT_LAYOUT
+    implementation Deps.CORE_KTX
+    implementation Deps.KOTLIN
+    implementation Deps.KOTLIN_COROUTINES_CORE
+    implementation Deps.KOTLIN_COROUTINES_ANDROID
+
+    //Retrofit2
+    implementation Deps.RETROFIT
+    implementation Deps.RETROFIT_ADAPTER_RXJAVA2
+    implementation Deps.RETROFIT_CONVERTER_GSON
+    //Retrofit2打印日志所需要的包
+    implementation Deps.OKHTTP_LOG
 }

@@ -4,17 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    compileSdkVersion Versions.COMPILE_SDK
+    buildToolsVersion Versions.BUILD_TOOLS
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+        minSdkVersion Versions.MIN_SDK
+        targetSdkVersion Versions.TARGET_SDK
     }
 
     buildTypes {
@@ -33,16 +28,17 @@ android {
 }
 
 dependencies {
-    api project(':libs:lib_util')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-
+    implementation project(':libs:lib_util')
+    implementation Deps.CORE_KTX
+    implementation Deps.KOTLIN
+    implementation Deps.KOTLIN_COROUTINES_CORE
+    implementation Deps.KOTLIN_COROUTINES_ANDROID
+    implementation Deps.VIEW_MODEL_KTX
+    implementation Deps.LIVE_DATA_KTX
     //Retrofit2
-    api 'com.squareup.retrofit2:retrofit:2.6.0'
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
-    api 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation Deps.RETROFIT
+    implementation Deps.RETROFIT_ADAPTER_RXJAVA2
+    implementation Deps.RETROFIT_CONVERTER_GSON
     //Retrofit2打印日志所需要的包
-    api 'com.squareup.okhttp3:logging-interceptor:3.14.2'
+    implementation Deps.OKHTTP_LOG
 }
