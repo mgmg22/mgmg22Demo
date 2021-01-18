@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.mgmg22.extensions.startKtxActivity
 import com.google.mgmg22demo.R
+import com.google.mgmg22demo.lock.SyncUnit
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +16,13 @@ class MainActivity : AppCompatActivity() {
         initView()
     }
 
-    private fun initView(){
-        btn_start_wy.startKtxActivity<WyDemoActivity> {  }
+    private fun initView() {
+        btn_start_wy.startKtxActivity<WyDemoActivity> { }
+        val syncTest = SyncUnit()
+        val thread1 = Thread(syncTest, "add")
+        val thread2 = Thread(syncTest, "dec")
+        thread1.start()
+        thread2.start()
     }
 }
 
