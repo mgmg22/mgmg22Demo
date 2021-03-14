@@ -22,7 +22,8 @@ public class ReverseTest {
         l3.next = l4;
         l4.next = l5;
         printListNode(l1);
-        printListNode(reverse(l1));
+//        printListNode(reverse(l1));
+        printListNode(reverseNum(l1));
     }
 
     public void printListNode(ListNode head) {
@@ -33,6 +34,21 @@ public class ReverseTest {
             temp = temp.next;
         }
         System.out.println(result);
+    }
+
+    public ListNode reverseNum(ListNode head) {
+        ListNode pre, cur;
+        pre = null;
+        cur = head;
+        while (cur != null) {
+            ListNode nxt = cur.next;
+            // 逐个结点反转
+            cur.next = pre;
+            // 更新指针位置
+            pre = cur;
+            cur = nxt;
+        }
+        return pre;
     }
 
     public ListNode reverse(ListNode head) {
