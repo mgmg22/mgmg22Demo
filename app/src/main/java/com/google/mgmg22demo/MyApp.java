@@ -10,6 +10,7 @@ import com.google.mgmg22.lib_slide_back.SmartSwipeWrapper;
 import com.google.mgmg22.lib_slide_back.SwipeConsumer;
 import com.google.mgmg22.lib_slide_back.consumer.ActivitySlidingBackConsumer;
 import com.google.mgmg22.lib_slide_back.listener.SimpleSwipeListener;
+import com.google.mgmg22.lib_util.ShowPageUtil;
 import com.google.mgmg22.libs_common.base.BaseApplication;
 import com.google.mgmg22demo.activity.MainActivity;
 
@@ -32,6 +33,9 @@ public class MyApp extends BaseApplication {
                 return !(activity instanceof MainActivity);
             }
         });
+        if (BuildConfig.DEBUG) {
+            ShowPageUtil.INSTANCE.init(this);
+        }
     }
 
     public static void activitySlidingBack(Application application, SmartSwipeBack.ActivitySwipeBackFilter filter) {

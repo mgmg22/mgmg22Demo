@@ -30,4 +30,5 @@ android {
 dependencies {
     implementation Deps.CORE_KTX
     implementation Deps.KOTLIN
+    implementation Deps.APPCOMPAT
 }
