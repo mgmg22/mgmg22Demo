@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 //        在这里调用的话，apk就无限重启。
 //        android.os.Process.killProcess(android.os.Process.myPid())
-//        initView()
+        initView()
     }
 
     override fun onResume() {
