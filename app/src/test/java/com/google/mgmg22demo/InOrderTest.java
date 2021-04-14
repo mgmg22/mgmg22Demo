@@ -18,6 +18,7 @@ public class InOrderTest {
         t2.left = t4;
         t2.right = t5;
         inOrder(t1);
+        System.out.println("二叉树的深度=" + treePath(t1));
     }
 
     //中序遍历
@@ -36,6 +37,15 @@ public class InOrderTest {
                 current = current.right;
             }
         }
+    }
+
+    public int treePath(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = treePath(root.left);
+        int right = treePath(root.right);
+        return left >= right ? (left + 1) : (right + 1);
     }
 
 }
