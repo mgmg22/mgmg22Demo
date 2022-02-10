@@ -18,9 +18,9 @@ public class LruTest {
         /**
          *  lru容器中可以容纳最多元素
          */
-        private int limit;
+        private final int limit;
 
-        private HashMap<String , Node > hashMap;
+        private final HashMap<String , Node > hashMap;
 
         /**
          * 初始化最大的容器

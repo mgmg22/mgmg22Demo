@@ -200,8 +200,8 @@ fun TextView.setImageSpanText(
  * Don't panic.
  */
 class CenterAlignImageSpan : ImageSpan {
-    constructor(d: Drawable?) : super(d!!) {}
-    constructor(d: Drawable?, verticalAlignment: Int) : super(d!!, verticalAlignment) {}
+    constructor(d: Drawable?) : super(d!!)
+    constructor(d: Drawable?, verticalAlignment: Int) : super(d!!, verticalAlignment)
 
     override fun draw(
         canvas: Canvas,

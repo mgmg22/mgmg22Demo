@@ -15,13 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class FlowLayoutManager extends RecyclerView.LayoutManager {
     private final String TAG = this.getClass().getName();
-    private SparseArray<View> cachedViews = new SparseArray();
-    private SparseArray<Rect> layoutPoints = new SparseArray<>();
+    private final SparseArray<View> cachedViews = new SparseArray();
+    private final SparseArray<Rect> layoutPoints = new SparseArray<>();
     private int totalWidth;
     private int totalHeight;
     private int mContentHeight;
     private int mOffset;
-    private boolean mIsFullyLayout;
+    private final boolean mIsFullyLayout;
 
     public FlowLayoutManager(Context context, boolean isFullyLayout) {
         mIsFullyLayout = isFullyLayout;

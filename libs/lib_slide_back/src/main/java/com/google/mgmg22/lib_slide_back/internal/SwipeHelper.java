@@ -71,8 +71,8 @@ public class SwipeHelper {
     private float[] mLastMotionY;
     private int mPointersDown;
     private VelocityTracker mVelocityTracker;
-    private float mMaxVelocity;
-    private float mMinVelocity;
+    private final float mMaxVelocity;
+    private final float mMinVelocity;
     private OverScroller mScroller;
     private int mClampedDistanceX;
     private int mClampedDistanceY;

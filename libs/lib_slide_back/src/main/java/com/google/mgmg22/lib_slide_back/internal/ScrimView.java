@@ -21,12 +21,12 @@ public class ScrimView extends View {
     public static float MIN_PROGRESS = 0F;
     private final Paint mPaint;
     private int mSize = 60;
-    private Rect mBounds = new Rect();
+    private final Rect mBounds = new Rect();
     private int mScrimColor;
     private int mBaseAlpha;
     private int mDirection;
-    private Paint mShadowPaint;
-    private Rect mShadowRect = new Rect();
+    private final Paint mShadowPaint;
+    private final Rect mShadowRect = new Rect();
     private int mShadowColor = 0x80000000;
     private int mShadowDirection;
 

@@ -13,6 +13,7 @@ import com.google.mgmg22.lib_slide_back.listener.SimpleSwipeListener;
 import com.google.mgmg22.lib_util.ShowPageUtil;
 import com.google.mgmg22.libs_common.base.BaseApplication;
 import com.google.mgmg22demo.activity.MainActivity;
+import com.google.mgmg22demo.log.HsLogManager;
 
 import static com.google.mgmg22.lib_slide_back.SmartSwipeBack.activityBack;
 import static com.google.mgmg22.lib_slide_back.SwipeConsumer.DIRECTION_LEFT;
@@ -34,6 +35,7 @@ public class MyApp extends BaseApplication {
             }
         });
         if (BuildConfig.DEBUG) {
+            HsLogManager.getInstance().init(this);
             ShowPageUtil.INSTANCE.init(this);
         }
     }

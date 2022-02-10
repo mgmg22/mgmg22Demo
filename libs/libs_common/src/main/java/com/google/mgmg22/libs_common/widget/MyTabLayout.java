@@ -198,7 +198,7 @@ public class MyTabLayout extends HorizontalScrollView {
     private final int mRequestedTabMaxWidth;
     private final int mScrollableTabMinWidth;
 
-    private int mContentInsetStart;
+    private final int mContentInsetStart;
 
     int mTabGravity;
     int mMode;

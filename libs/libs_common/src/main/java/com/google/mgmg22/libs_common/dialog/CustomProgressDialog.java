@@ -17,7 +17,7 @@ import com.google.mgmg22.libs_common.R;
 public class CustomProgressDialog extends Dialog {
 
     private String loadingMessage;
-    private TextView messageTv;
+    private final TextView messageTv;
 
     public CustomProgressDialog(Context context) {
         this(context, R.style.CustomDialog);

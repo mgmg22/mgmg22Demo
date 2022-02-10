@@ -37,10 +37,10 @@ public class ActivityTranslucentUtil {
      * record the converting activity, resolve more than 1 xxUIs add onto the same activity
      */
     private static WeakReference<Activity> convertingActivity;
-    private Activity mActivity;
+    private final Activity mActivity;
     private boolean mIsTranslucent;
     private long convertTranslucentTimeStamp;
-    private MessageQueue.IdleHandler convertActivityToTranslucentIdleHandler = new MessageQueue.IdleHandler() {
+    private final MessageQueue.IdleHandler convertActivityToTranslucentIdleHandler = new MessageQueue.IdleHandler() {
         @Override
         public boolean queueIdle() {
             convertActivityToTranslucent();

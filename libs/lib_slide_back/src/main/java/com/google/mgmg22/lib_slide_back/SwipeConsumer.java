@@ -119,7 +119,7 @@ public abstract class SwipeConsumer {
      */
     private int mEnableDirection = DIRECTION_NONE;
     private int mLockDirection = DIRECTION_NONE;
-    private float mSensitivity = 1F;
+    private final float mSensitivity = 1F;
 
     /**
      * always swipe by default when settling
