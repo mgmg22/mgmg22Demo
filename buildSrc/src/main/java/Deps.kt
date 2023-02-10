@@ -1,7 +1,7 @@
 object Deps {
 
 
-    const val CLASS_PATH_GRADLE = "com.android.tools.build:gradle:4.0.0"
+    const val CLASS_PATH_GRADLE = "com.android.tools.build:gradle:7.2.2"
     const val CLASS_PATH_KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}"
     const val CLASS_PATH_BUGLY = "com.tencent.bugly:symtabfileuploader:2.2.1"
     const val CLASS_PATH_ROBUST = "com.meituan.robust:gradle-plugin:0.4.99"
@@ -26,13 +26,13 @@ object Deps {
     const val KOTLIN_COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7"
 
     const val CORE_KTX = "androidx.core:core-ktx:1.3.0"
-    const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0"
-    const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.5"
-    const val VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    const val LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-    const val RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-    const val PROCESS_KTX = "androidx.lifecycle:lifecycle-process:2.2.0"
-    const val EXTENSIONS_KTX = "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.2"
+    const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.6"
+    const val VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0"
+    const val LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0"
+    const val RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0"
+    const val PROCESS_KTX = "androidx.lifecycle:lifecycle-process:2.5.0"
+    const val EXTENSIONS_KTX = "androidx.lifecycle:lifecycle-extensions:2.5.0"
 
     const val AV_SDK = "com.tencent.liteav:LiteAVSDK_Professional:7.6.9376"
     const val RXJAVA2 = "io.reactivex.rxjava2:rxjava:2.2.0"

@@ -13,8 +13,11 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.WyDemoActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

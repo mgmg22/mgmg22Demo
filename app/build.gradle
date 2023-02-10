@@ -59,6 +59,7 @@ dependencies {
     implementation Deps.APPCOMPAT
     implementation Deps.CONSTRAINT_LAYOUT
     implementation Deps.CORE_KTX
+    implementation Deps.ACTIVITY_KTX
     implementation Deps.KOTLIN
     implementation Deps.KOTLIN_COROUTINES_CORE
     implementation Deps.KOTLIN_COROUTINES_ANDROID
