@@ -2,7 +2,7 @@ package com.google.mgmg22demo
 
 import org.junit.Test
 
-class FibTestkt {
+class FibTestKt {
     fun fibKt(n: Int): Int {
         if (n == 0) return 0
         if (n == 1 || n == 2) return 1
