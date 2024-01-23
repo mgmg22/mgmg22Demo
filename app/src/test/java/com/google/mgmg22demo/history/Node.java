@@ -1,4 +1,4 @@
-package com.google.mgmg22demo;
+package com.google.mgmg22demo.history;
 
 /**
  * @Author shenxiaoshun
@@ -9,11 +9,14 @@ package com.google.mgmg22demo;
  * 节点类
  * 包含四个元素：key、value、pre节点、next节点
  */
-class ListNode {
+class Node{
+    String key;
     String value;
-    ListNode next;
+    Node pre;
+    Node next;
 
-    ListNode(String value) {
+    Node(String key, String value){
+        this.key = key;
         this.value = value;
     }
 }

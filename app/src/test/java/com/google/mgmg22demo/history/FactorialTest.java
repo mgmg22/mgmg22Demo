@@ -1,10 +1,8 @@
-package com.google.mgmg22demo;
+package com.google.mgmg22demo.history;
 
 import org.junit.Test;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 求100的阶乘

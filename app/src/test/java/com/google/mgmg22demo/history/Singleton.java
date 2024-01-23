@@ -1,4 +1,4 @@
-package com.google.mgmg22demo;
+package com.google.mgmg22demo.history;
 
 /**
  *
