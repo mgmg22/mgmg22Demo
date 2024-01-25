@@ -14,8 +14,9 @@ import kotlin.math.min
  * 你可以认为每种硬币的数量是无限的。
  */
 class CoinChange {
-    //    从底向上
+    //    从底向上（最优，从顶向下遍历会超时）
     fun coinChange(coins: IntArray, amount: Int): Int {
+        //填充amount+1相当于无穷大
         val dp = Array(amount + 1) { amount + 1 }
         dp[0] = 0
         for (i in dp.indices) {
