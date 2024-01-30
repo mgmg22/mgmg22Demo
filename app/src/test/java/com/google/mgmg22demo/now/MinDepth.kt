@@ -28,7 +28,7 @@ class MinDepth {
         q.offer(root)
         var depth = 1
         while (q.isNotEmpty()) {
-            for (item in q) {
+            for (i in 0 until q.size) {
                 val cur = q.poll()
                 if (cur.left == null && cur.right == null) {
                     return depth
