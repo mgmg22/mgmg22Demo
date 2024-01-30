@@ -68,6 +68,49 @@ class OpenLock {
         return -1
     }
 
+    //    双向BFS
+    fun openLockTwo(deadends: Array<String>, target: String): Int {
+        var q1 = hashSetOf<String>()
+        var q2 = hashSetOf<String>()
+        val dead = hashSetOf<String>()
+        deadends.forEach { dead.add(it) }
+        val visited = hashSetOf<String>()
+        q1.add("0000")
+        q2.add(target)
+        var step = 0
+        while (q1.isNotEmpty() && q2.isNotEmpty()) {
+            val temp = hashSetOf<String>()
+            for (cur in q1) {
+//                println("cur=$cur")
+                if (deadends.contains(cur)) {
+                    continue
+                }
+                if (q2.contains(cur)) {
+                    return step
+                }
+                visited.add(cur)
+                for (j in 0 until cur.length) {
+                    val up = plusOne(cur, j)
+//                    print("up=$up")
+                    val down = minusOne(cur, j)
+//                    print("down=$down")
+                    if (!visited.contains(up)) {
+                        temp.add(up)
+                    }
+                    if (!visited.contains(down)) {
+                        temp.add(down)
+                    }
+                }
+
+            }
+            step++
+            q1 = q2
+            q2 = temp
+//            println("交换")
+        }
+        return -1
+    }
+
     fun plusOne(s: String, j: Int): String {
         val ch = s.toCharArray()
         if (ch[j] == '9') {
@@ -90,6 +133,6 @@ class OpenLock {
 
     @Test
     fun test() {
-        println(openLock(Array(1) { "8888" }, "0009"))
+        println(openLock(arrayOf("0201", "0101", "0102", "1212", "2002"), "0202"))
     }
 }
