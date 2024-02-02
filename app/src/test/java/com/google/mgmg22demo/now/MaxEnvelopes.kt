@@ -36,8 +36,8 @@ class MaxEnvelopes {
         val dp = mutableListOf<Int>()
 
         //为了leecode不超时不用标准的LIS
-        for (i in 0 until envelopes.size) {
-            val j = binary_search(dp, envelopes[i][1]);
+        for (i in envelopes.indices) {
+            val j = binary_search(dp, envelopes[i][1])
             if (j == dp.size) {
                 dp.add(envelopes[i][1])
             } else {
