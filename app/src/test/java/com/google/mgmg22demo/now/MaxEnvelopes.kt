@@ -1,0 +1,76 @@
+package com.google.mgmg22demo.now
+
+import com.google.gson.Gson
+import org.junit.Test
+import java.util.Arrays
+
+/**
+ * @description 354. 俄罗斯套娃信封问题
+ * @Author matt.shen
+ * @Date 2024/2/2
+ * 给你一个二维整数数组 envelopes ，其中 envelopes[i] = [wi, hi] ，表示第 i 个信封的宽度和高度。
+ *
+ * 当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。
+ *
+ * 请计算 最多能有多少个 信封能组成一组“俄罗斯套娃”信封（即可以把一个信封放到另一个信封里面）。
+ *
+ * 注意：不允许旋转信封。
+ *
+ *
+ * 示例 1：
+ *
+ * 输入：envelopes = [[5,4],[6,4],[6,7],[2,3]]
+ * 输出：3
+ * 解释：最多信封的个数为 3, 组合为: [2,3] => [5,4] => [6,7]。
+ */
+class MaxEnvelopes {
+    fun maxEnvelopes(envelopes: Array<IntArray>): Int {
+        envelopes.sortWith { a: IntArray, b: IntArray ->
+            if (a[0] != b[0]) {
+                a[0] - b[0]
+            } else {
+                b[1] - a[1]
+            }
+        }
+        //println(Gson().toJson(envelopes))
+        val dp = mutableListOf<Int>()
+
+        //为了leecode不超时不用标准的LIS
+        for (i in 0 until envelopes.size) {
+            val j = binary_search(dp, envelopes[i][1]);
+            if (j == dp.size) {
+                dp.add(envelopes[i][1])
+            } else {
+                dp[j] = envelopes[i][1]
+            }
+        }
+        return dp.size
+    }
+
+    fun binary_search(g: List<Int>, x: Int): Int {
+        var l = 0
+        var r = g.size - 1
+        while (l <= r) {
+            val m = l + r shr 1
+            if (g[m] >= x) r = m - 1
+            else l = m + 1
+        }
+        return l
+    }
+
+
+    @Test
+    fun test() {
+        println(
+            maxEnvelopes(
+                arrayOf(
+                    arrayOf(4, 5).toIntArray(),
+                    arrayOf(4, 6).toIntArray(),
+                    arrayOf(6, 7).toIntArray(),
+                    arrayOf(2, 3).toIntArray(),
+                    arrayOf(1, 1).toIntArray()
+                )
+            )
+        )
+    }
+}
