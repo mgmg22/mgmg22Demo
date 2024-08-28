@@ -35,7 +35,7 @@ public class MyApp extends BaseApplication {
             }
         });
         if (BuildConfig.DEBUG) {
-            HsLogManager.getInstance().init(this);
+//            HsLogManager.getInstance().init(this);
             ShowPageUtil.INSTANCE.init(this);
         }
     }
