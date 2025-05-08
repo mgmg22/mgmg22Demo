@@ -1,13 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
+        google()
+        mavenCentral()
         maven { url Repository.ALI_PUBLIC }
         maven { url Repository.ALI_GOOGLE }
         maven { url Repository.ALI_GRADLE }
         maven { url Repository.KOTLIN_EAP }
-        mavenCentral()
-        jcenter()
-        google()
     }
     dependencies {
         classpath Deps.CLASS_PATH_GRADLE
@@ -17,13 +16,12 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
+        mavenCentral()
         maven { url Repository.ALI_PUBLIC }
         maven { url Repository.ALI_GOOGLE }
         maven { url Repository.ALI_GRADLE }
         maven { url Repository.KOTLIN_EAP }
-        mavenCentral()
-        jcenter()
-        google()
     }
 }
 

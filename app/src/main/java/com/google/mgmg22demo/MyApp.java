@@ -62,7 +62,7 @@ public class MyApp extends BaseApplication {
                             public void onSwipeOpened(SmartSwipeWrapper wrapper, SwipeConsumer consumer, int direction) {
                                 if (activity != null) {
                                     activity.finish();
-                                    activity.overridePendingTransition(R.anim.anim_none, R.anim.anim_none);
+                                    activity.overridePendingTransition(com.google.mgmg22.lib_slide_back.R.anim.anim_none, com.google.mgmg22.lib_slide_back.R.anim.anim_none);
                                 }
                             }
                         });

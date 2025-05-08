@@ -66,9 +66,13 @@ fun View.onSafeClick(onClickListener: SafeOnClickListener) {
 fun View.safePostDelayed(delay: Long, runnable: () -> Unit): Cancelable {
     val task = Runnable { runnable() } //必须包裹,否则取消时会新new Runnable
     addOnAttachStateChangeListener(object : SimpleOnAttachStateChangeListener() {
-        override fun onViewDetachedFromWindow(v: View?) {
-            v?.removeCallbacks(task)
+        override fun onViewDetachedFromWindow(v: View) {
+            v.removeCallbacks(task)
             removeOnAttachStateChangeListener(this)
+        }
+
+        override fun onViewAttachedToWindow(v: View) {
+            TODO("Not yet implemented")
         }
     })
     postDelayed(task, delay)
@@ -106,9 +110,13 @@ fun View.safeIntervalTask(
 
     }
     addOnAttachStateChangeListener(object : SimpleOnAttachStateChangeListener() {
-        override fun onViewDetachedFromWindow(v: View?) {
-            v?.removeCallbacks(task)
+        override fun onViewDetachedFromWindow(v: View) {
+            v.removeCallbacks(task)
             removeOnAttachStateChangeListener(this)
+        }
+
+        override fun onViewAttachedToWindow(v: View) {
+            TODO("Not yet implemented")
         }
     })
     postDelayed(task, delay)
@@ -144,11 +152,15 @@ fun View.safeCountDownTask(
     }
 
     addOnAttachStateChangeListener(object : SimpleOnAttachStateChangeListener() {
-        override fun onViewDetachedFromWindow(v: View?) {
+        override fun onViewDetachedFromWindow(v: View) {
             timer?.cancel()
             timer = null
             if (!isFinishInvoked) onCancel?.invoke()
             removeOnAttachStateChangeListener(this)
+        }
+
+        override fun onViewAttachedToWindow(v: View) {
+            TODO("Not yet implemented")
         }
     })
 
@@ -245,7 +257,7 @@ class TextWatcherImp {
 }
 
 abstract class SimpleOnAttachStateChangeListener : View.OnAttachStateChangeListener {
-    override fun onViewAttachedToWindow(v: View?) {
+    override fun onViewAttachedToWindow(v: View) {
 
     }
 }

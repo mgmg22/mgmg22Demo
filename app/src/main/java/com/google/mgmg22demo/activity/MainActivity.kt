@@ -4,15 +4,17 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.mgmg22.extensions.startKtxActivity
-import com.google.mgmg22demo.R
+import com.google.mgmg22demo.databinding.ActivityMainBinding
 import com.google.mgmg22demo.lock.SyncUnit
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.e("sxs","onCreate()")
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 //        在这里调用的话，apk就无限重启。
 //        android.os.Process.killProcess(android.os.Process.myPid())
         initView()
@@ -49,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        btn_start_wy.startKtxActivity<WyDemoActivity> { }
+        binding.btnStartWy.startKtxActivity<WyDemoActivity> { }
         val syncTest = SyncUnit()
         val thread1 = Thread(syncTest, "add")
         val thread2 = Thread(syncTest, "dec")

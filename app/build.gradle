@@ -1,11 +1,13 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
 }
 android {
-    compileSdkVersion Versions.COMPILE_SDK
-    buildToolsVersion Versions.BUILD_TOOLS
+    buildFeatures {
+        buildConfig true
+    }
+    namespace 'com.google.mgmg22demo'
+    compileSdk Versions.COMPILE_SDK
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
@@ -17,7 +19,11 @@ android {
         targetSdkVersion Versions.TARGET_SDK
         versionCode Versions.APP_CODE
         versionName Versions.APP_NAME
-        ndk { abiFilters "armeabi-v7a" }
+        ndk {
+//                abiFilters "armeabi", "armeabi-v7a", "x86", "arm64-v8a"
+            abiFilters "armeabi-v7a", "arm64-v8a"
+
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,11 +44,15 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_18
+        targetCompatibility JavaVersion.VERSION_18
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '18'
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -55,7 +65,6 @@ dependencies {
     implementation project(':libs:lib_slide_back')
     implementation project(':libs:extensions')
     implementation project(':libs:lib_util')
-    implementation project(':libs:lib_http')
     implementation Deps.APPCOMPAT
     implementation Deps.CONSTRAINT_LAYOUT
     implementation Deps.CORE_KTX
@@ -65,9 +74,9 @@ dependencies {
     implementation Deps.KOTLIN_COROUTINES_ANDROID
 
     //Retrofit2
-    implementation Deps.RETROFIT
-    implementation Deps.RETROFIT_ADAPTER_RXJAVA2
-    implementation Deps.RETROFIT_CONVERTER_GSON
-    //Retrofit2打印日志所需要的包
-    implementation Deps.OKHTTP_LOG
+//    implementation Deps.RETROFIT
+//    implementation Deps.RETROFIT_ADAPTER_RXJAVA2
+//    implementation Deps.RETROFIT_CONVERTER_GSON
+//    //Retrofit2打印日志所需要的包
+//    implementation Deps.OKHTTP_LOG
 }
